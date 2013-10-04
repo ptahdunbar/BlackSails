@@ -1,6 +1,8 @@
+/public/local-config.php
+/public/content/upgrade/
+/logs/*
 /shared
-/local-config.php
 /sql-dump-*.sql
 /db-sync
-/content/upgrade/
 .DS_Store
+.idea
