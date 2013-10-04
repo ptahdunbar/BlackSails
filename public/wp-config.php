@@ -107,7 +107,7 @@ if ( ! defined('WPLANG') )
 
 /** The default base theme. */
 if ( ! defined('WP_DEFAULT_THEME') )
-    define('WP_DEFAULT_THEME', 'twentythirteen');
+    define('WP_DEFAULT_THEME', 'wp-skeleton-theme');
 
 /**#@-*/
 

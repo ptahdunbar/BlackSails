@@ -15,3 +15,6 @@ This is simply a skeleton repo for a WordPress site. Use it to jump-start your W
 ```
 git clone --recursive git@github.com:ptahdunbar/wp-skeleton.git wp.dev
 ```
+
+#### Thanks
+* [WPSkeleton](https://github.com/markjaquith/WordPress-Skeleton) for the bootstrap, thx!

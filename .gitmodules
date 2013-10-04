@@ -1,3 +1,6 @@
 [submodule "public/wp"]
 	path = public/wp
 	url = git@github.com:WordPress/WordPress.git
+[submodule "public/content/themes/wp-skeleton-theme"]
+	path = public/content/themes/wp-skeleton-theme
+	url = git@github.com:ptahdunbar/wp-skeleton-theme.git
