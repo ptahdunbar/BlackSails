@@ -1,5 +1,11 @@
-/public/local-config.php
-/public/content/upgrade
-/logs/*
+public/content/mu-plugins/wp-skeleton-plugin
+public/content/plugins/wp-skeleton-plugin
+public/content/themes/wp-skeleton-theme
+public/content/themes/_s
+public/content/upgrade
+public/wp
+public/local-config.php
+logs
+vendor
 .DS_Store
 .idea
