@@ -3,8 +3,6 @@
 
     "description": "This is a skeleton repo for a WordPress site.",
 
-    "version" : "1.0.0",
-
     "type": "project",
 
     "keywords" : [ "wordpress", "php" ],
