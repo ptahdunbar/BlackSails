@@ -1,15 +1,13 @@
 {
     "name": "ptahdunbar/wp-skeleton-site",
-
-    "description": "This is a skeleton repo for a WordPress site.",
-
+    "homepage": "https://github.com/ptahdunbar/wp-skeleton-site",
+    "description": "A WordPress skeleton site.",
     "type": "project",
-
-    "keywords" : [ "wordpress", "php" ],
-
-    "homepage" : "https://github.com/ptahdunbar/wp-skeleton-site",
-
     "license": "GPL-2.0+",
+
+    "keywords": [
+        "WordPress", "plugins", "themes", "php", "skeleton"
+    ],
 
     "authors": [
         {
