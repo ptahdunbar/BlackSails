@@ -75,5 +75,5 @@ define('SCRIPT_DEBUG', false);
 /** Saves database queries for query analyzing. Not recommended for production. */
 define('SAVEQUERIES', false);
 
-/** Profiling Request/Response time. */
+/** Profile Request/Response time. */
 define('REQUEST_MICROTIME', microtime(true));
