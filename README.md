@@ -1,20 +1,20 @@
-# WP Skeleton project - WIP.
+# WP Skeleton Site - WIP.
 
 This is simply a skeleton repo for a WordPress site. Use it to jump-start your WordPress site repos, or fork it and customize it to your own liking!
 
-## Assumptions
 
-* WordPress as a Git submodule in `/public/wp/`
-* Custom content directory in `/public/content/` (cleaner, and also because it can't be in `/public/wp/`)
-* `wp-config.php` in the root (because it can't be in `/public/wp/`)
-* All writable directories are symlinked to similarly named locations under `/shared/`.
+## Requirements
+* PHP 5.2.4
+* Composer ~1.0 [http://getcomposer.org](http://getcomposer.org)
+
+## Getting started
 
 
-## Installation
-
+### Create project
 ```
-git clone --recursive git@github.com:ptahdunbar/wp-skeleton.git wp.dev
+ $ composer create-project ptahdubnar/wp-skeleton-site wp.dev
 ```
+
 
 #### Thanks
-* [WPSkeleton](https://github.com/markjaquith/WordPress-Skeleton) for the bootstrap, thx!
+* [WPSkeleton](https://github.com/markjaquith/WordPress-Skeleton), thx [@markjaquith](https://github.com/markjaquith)!
