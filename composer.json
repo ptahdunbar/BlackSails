@@ -1,7 +1,7 @@
 {
     "name": "ptahdunbar/wp-skeleton-site",
     "homepage": "https://github.com/ptahdunbar/wp-skeleton-site",
-    "description": "A WordPress skeleton site.",
+    "description": "A WordPress skeleton site. -_O",
     "type": "project",
     "license": "GPL-2.0+",
 
@@ -30,6 +30,10 @@
             "public/content/plugins/{$name}/": ["type:wordpress-plugin"],
             "public/content/themes/{$name}/": ["type:wordpress-theme"]
         }
+    },
+
+    "scripts" : {
+        "post-create-project-install": "[ -e composer.phar ] && composer.phar update || composer update"
     },
 
     "repositories": [
