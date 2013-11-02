@@ -12,7 +12,7 @@ This is simply a skeleton repo for a WordPress site. Use it to jump-start your W
 
 ### Create project
 ```
- $ composer create-project ptahdunbar/wp-skeleton-site wp.dev
+ $ composer create-project -s dev ptahdunbar/wp-skeleton-site wp.dev
 ```
 
 
