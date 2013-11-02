@@ -19,7 +19,7 @@
 
     "require": {
         "php": ">=5.3.0",
-        "wordpress/wordpress": "3.6",
+        "wordpress/wordpress": "3.7",
         "automattic/_s": "~1.0"
     },
 
@@ -46,15 +46,15 @@
             "package": {
                 "name": "wordpress/wordpress",
                 "type": "drupal-module",
-                "version": "3.6",
+                "version": "3.7",
                 "dist": {
-                    "url": "https://github.com/WordPress/WordPress/archive/3.6-branch.zip",
+                    "url": "https://github.com/WordPress/WordPress/archive/3.7-branch.zip",
                     "type": "zip"
                 },
                 "source": {
                     "url": "https://github.com/WordPress/WordPress",
                     "type": "git",
-                    "reference": "3.6"
+                    "reference": "3.7"
                 },
                 "require": {
                     "composer/installers": "~1.0"
