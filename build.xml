@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="WP Skeleton Site" default="build" basedir=".">
+
+    <property name="env" value="development" />
+    <property name="composer.exec" value="composer" />
+    <property name="composer.bin" value="./vendor/bin" />
+    <property name="phplint.cachefile" value="${project.basedir}/.phplint.cache" />
+    <property name="selenium.path" value="${project.basedir}/selenium-server.jar" />
+
+    <property name="build.wp_content" value="wp-content" />
+    <property name="build.wp_version" value="3.8-branch" />
+    <property name="build.wp_multisite" value="false" />
+    <property name="build.db_host" value="localhost" />
+    <property name="build.db_user" value="root" />
+    <property name="build.db_pass" value="root" />
+    <property name="build.type" value="plugin" />
+
+    <property name="build.wp_core_repo" value="git://github.com/WordPress/WordPress.git" />
+    <property name="build.wp_core_path" value="/tmp/wordpress" />
+    <property name="build.wp_tests_path" value="/tmp/wordpress-tests" />
+    <property name="build.wp_tests_db" value="wordpress_tests" />
+    <property name="build.wp_tests_repo" value="http://develop.svn.wordpress.org/trunk/" />
+    <property name="mysql.exec" value="mysql" />
+
+    <target name="build"
+            depends="tests"
+            description="Primary target used to invoke all main targets." />
+
+    <target name="init"
+            depends="load-properties"
+            description="Load the environment properties" />
+
+    <target name="load-properties">
+        <!-- Override default properties if custom build.properties exists -->
+        <available property="project.properties.file"
+                   file="${project.basedir}/build.properties"
+                   value="${project.basedir}/build.properties" />
+
+        <property file="${project.properties.file}" override="true" />
+        <echo msg="Build properties loaded!" />
+    </target>
+
+    <target name="composer-download">
+        <exec command="php -r &quot;eval('?>'.file_get_contents('https://getcomposer.org/installer'));&quot;"
+              passthru="true"
+              checkreturn="true" />
+        <property name="composer.exec" value="${project.basedir}/composer.phar" override="true" />
+    </target>
+
+    <target name="configure-composer-install-cmd">
+        <if>
+            <equals casesensitive="false" arg1="${env}" arg2="production" />
+            <then>
+                <property name="composer.install" value="${composer.exec} install --no-dev" />
+            </then>
+            <else>
+                <property name="composer.install" value="${composer.exec} install" />
+            </else>
+        </if>
+    </target>
+
+    <target name="composer-install" depends="configure-composer-install-cmd">
+        <exec command="${composer.install}"
+              passthru="true"
+              checkreturn="true" />
+    </target>
+
+    <target name="lint"
+            depends="init,lint-php"
+            description="Check all files for syntax errors." />
+
+    <target name="lint-php">
+        <foreach param="filename" absparam="absfilename" target="lint-php-linter">
+            <fileset refid="mu-plugins" />
+            <fileset refid="tests" />
+        </foreach>
+    </target>
+
+    <target name="lint-php-linter">
+        <phplint file="${absfilename}"
+                 haltonfailure="true"
+                 deprecatedAsError="true"
+                 cachefile="${phplint.cachefile}" />
+    </target>
+
+    <target name="tests"
+            depends="lint,tests-init,integration-tests,acceptance-tests"
+            description="Tests ALL THE THINGS!" />
+
+    <target name="integration-tests" description="Run integration tests with PHPUnit" depends="lint,tests-init">
+        <exec command="${composer.bin}/phpunit"
+              passthru="true"
+              checkreturn="true" />
+    </target>
+
+    <target name="acceptance-tests" depends="behat" />
+
+    <target name="behat" description="Run acceptance tests with Behat" depends="lint,tests-init">
+        <exec command="${composer.bin}/behat"
+              passthru="true"
+              checkreturn="true" />
+    </target>
+
+    <target name="selenium-start" depends="selenium-download">
+        <if>
+            <available file="${selenium.path}" />
+            <then>
+                <exec command="java -jar ${project.basedir}/selenium-server.jar"
+                      passthru="true"
+                      checkreturn="true" />
+            </then>
+        </if>
+    </target>
+
+    <target name="selenium-download" depends="init">
+        <if>
+            <not>
+                <available file="${selenium.path}" />
+            </not>
+            <then>
+                <exec command='curl "http://selenium.googlecode.com/files/selenium-server-standalone-2.38.0.jar" -o ${project.basedir}/selenium-server.jar'
+                      passthru="true"
+                      checkreturn="true" />
+            </then>
+        </if>
+    </target>
+
+    <target name="selenium-stop">
+        <exec command='curl "http://localhost:4444/selenium-server/driver/?cmd=shutDownSeleniumServer"' checkreturn="true" />
+    </target>
+
+    <target name="tests-init" depends="wp-core-init,wp-tests-init,wp-build-copy" />
+
+    <target name="wp-core-init" depends="init">
+        <if>
+            <not>
+                <available file="${build.wp_core_path}" />
+            </not>
+            <then>
+                <mkdir dir="${build.wp_core_path}" />
+                <echo msg="Downloading WordPress version: ${build.wp_version} and extracting it into ${build.wp_core_path}" />
+                <exec command="git clone -b ${build.wp_version} ${build.wp_core_repo} ${build.wp_core_path}" />
+            </then>
+            <else>
+                <echo msg="Skipping WordPress download. Using existing install tests directory in ${build.wp_core_path}" />
+            </else>
+        </if>
+    </target>
+
+    <target name="wp-tests-init" depends="wp-tests-download,update-wp-tests-config,wp-tests-db-init" />
+
+    <target name="wp-tests-download" depends="init">
+        <if>
+            <not>
+                <available file="${build.wp_tests_path}" />
+            </not>
+            <then>
+                <mkdir dir="${build.wp_tests_path}" />
+                <echo msg="Downloading WordPress tests framework version: ${build.wp_version} and extracting it into ${build.wp_tests_path}" />
+                <exec command="svn co --quiet --ignore-externals ${build.wp_tests_repo} ${build.wp_tests_path}"
+                      passthru="true"
+                      checkreturn="true" />
+            </then>
+            <else>
+                <echo msg="Skipping WordPress tests framework download. Using existing install tests directory in ${build.wp_tests_path}" />
+            </else>
+        </if>
+    </target>
+
+    <target name="update-wp-tests-config" depends="init">
+        <if>
+            <istrue value="${build.wp_multisite}" />
+            <then>
+                <echo msg="Multisite Enabled" />
+                <property name="multisite" value="true" />
+            </then>
+            <else>
+                <echo msg="Multisite based on environment variable: WP_MULTISITE" />
+                <property name="multisite" value="(bool) getenv( 'WP_MULTISITE' )" />
+            </else>
+        </if>
+
+        <copy file="${build.wp_tests_path}/wp-tests-config-sample.php"
+              tofile="${build.wp_tests_path}/wp-tests-config.php"
+              overwrite="true">
+            <filterchain>
+                <replaceregexp>
+                    <regexp pattern="youremptytestdbnamehere" replace="${build.wp_tests_db}" ignoreCase="true" />
+                    <regexp pattern="yourusernamehere" replace="${build.db_user}" ignoreCase="true" />
+                    <regexp pattern="yourpasswordhere" replace="${build.db_pass}" ignoreCase="true" />
+                    <regexp pattern="localhost" replace="${build.db_host}" ignoreCase="true" />
+                    <regexp pattern="dirname\( __FILE__ \) \. \'\/src\/\'" replace="getenv( 'WP_CORE_DIR' ) ? getenv( 'WP_CORE_DIR' ) . '/' : dirname( __FILE__ ) . '/src/'" ignoreCase="true" />
+                    <regexp pattern="\/\/ define\( \'WP_TESTS_MULTISITE\'\, true \)\;" replace="define( 'WP_TESTS_MULTISITE', ${multisite} );" ignoreCase="true" />
+                </replaceregexp>
+            </filterchain>
+        </copy>
+    </target>
+
+    <target name="wp-tests-db-init" depends="init,mysql-connection-check">
+        <echo msg="Created MySQL database: ${build.wp_tests_db}" />
+        <exec command="${mysql.exec} -e 'DROP DATABASE IF EXISTS ${build.wp_tests_db};' --user=${build.db_user} --password=${build.db_pass}" passthru="true" checkreturn="true" />
+        <exec command="${mysql.exec} -e 'CREATE DATABASE ${build.wp_tests_db};' --user=${build.db_user} --password=${build.db_pass}" passthru="true" checkreturn="true" />
+    </target>
+
+    <target name="mysql-connection-check">
+        <exec command="${mysql.exec} -e 'SYSTEM pwd;' -h ${build.db_host} --user=${build.db_user} --password=${build.db_pass}" passthru="true" checkreturn="true" />
+    </target>
+
+    <target name="wp-build-copy" depends="init">
+        <exec command="basename ${project.basedir}" outputProperty="dir.name" />
+        <if>
+            <equals arg1="${build.type}" arg2="plugin" />
+            <then>
+                <property name="build.copy_path" value="${build.wp_core_path}/${build.wp_content}/plugins/${dir.name}" />
+            </then>
+            <else>
+                <property name="build.copy_path" value="${build.wp_core_path}/${build.wp_content}/themes/${dir.name}" />
+            </else>
+        </if>
+
+        <if>
+            <not>
+                <available file="${build.copy_path}" />
+            </not>
+            <then>
+                <echo>Symlink ${dir.name} to ${build.copy_path}</echo>
+                <symlink target="${project.basedir}" link="${build.copy_path}" />
+            </then>
+            <else>
+                <echo msg="Skipping build copy. Path already exists: ${build.copy_path}" />
+            </else>
+        </if>
+    </target>
+
+	<target name="loop-deps">
+		<foreach param="filename" absparam="absfilename" target="looper">
+			<fileset refid="dependencies" />
+		</foreach>
+	</target>
+
+	<target name="looper">
+		<exec command="dirname ${absfilename}" outputProperty="depdir" />
+		<echo msg="Composer install: ${depdir}" />
+		<exec command="${composer.exec} install -d ${depdir}" />
+		<echo msg="Phing: ${depdir}" />
+		<phing phingfile="${filename}" inheritAll="false" haltonfailure="true" />
+	</target>
+
+    <fileset id="tests" dir="${project.basedir}">
+        <include name="tests/behat/**/**.php" />
+        <include name="tests/phpunit/**/**.php" />
+    </fileset>
+
+    <fileset id="mu-plugins" dir="${project.basedir}">
+        <include name="public/content/mu-plugins/*.php" />
+    </fileset>
+
+	<fileset id="dependencies" dir="${project.basedir}">
+		<include name="public/content/plugins/*/build.xml" />
+		<include name="public/content/themes/*/build.xml" />
+	</fileset>
+</project>

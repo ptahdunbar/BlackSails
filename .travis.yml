@@ -1,0 +1,29 @@
+# Travis CI Configuration File
+
+language: php
+
+php:
+    - 5.4
+    - 5.5
+
+env:
+    - WP_VERSION=master WP_MULTISITE=0
+    - WP_VERSION=3.8.0 WP_MULTISITE=0
+    - WP_VERSION=3.7.1 WP_MULTISITE=0
+    - WP_VERSION=3.6.1 WP_MULTISITE=0
+    - WP_VERSION=master WP_MULTISITE=1
+    - WP_VERSION=3.8.0 WP_MULTISITE=1
+    - WP_VERSION=3.7.1 WP_MULTISITE=1
+    - WP_VERSION=3.6.1 WP_MULTISITE=1
+
+before_script:
+    - composer install
+    - echo "build.db_pass=" >> build.properties
+    - vendor/bin/phing tests-init
+
+script: vendor/bin/phing
+
+branches:
+  only:
+    - master
+    - develop

@@ -1,7 +1,7 @@
 {
     "name": "ptahdunbar/wp-skeleton-site",
     "homepage": "https://github.com/ptahdunbar/wp-skeleton-site",
-    "description": "A WordPress skeleton site. -_O",
+    "description": "A walking skeleton WordPress site. -_O",
     "type": "project",
     "license": "GPL-2.0+",
 
@@ -12,8 +12,7 @@
     "authors": [
         {
             "name": "Ptah Dunbar",
-            "email": "yarr@piratedunbar.com",
-            "homepage": "http://piratedunbar.com"
+            "email": "yarr@piratedunbar.com"
         }
     ],
 
@@ -21,12 +20,22 @@
         "php": ">=5.4",
         "wordpress/wordpress": "3.8",
         "ptahdunbar/wp-skeleton-theme": "dev-master",
-        "ptahdunbar/wp-skeleton-plugin": "dev-muplugins"
+        "ptahdunbar/wp-skeleton-plugin": "dev-master"
     },
 
     "require-dev" : {
-        "phing/phing": "2.6.*",
-        "robmorgan/phinx": "*"
+	    "phing/phing": "2.6.*",
+	    "phpunit/phpunit": "3.7.*",
+	    "phpunit/dbunit": "1.2.*@dev",
+	    "phpunit/phpunit-selenium" : "*",
+	    "whatthejeff/nyancat-phpunit-resultprinter": "~1.1",
+	    "behat/behat": "2.4.*",
+	    "behat/mink": "1.4.*",
+	    "behat/mink-extension": "*",
+	    "behat/mink-goutte-driver": "*",
+	    "behat/mink-selenium2-driver": "*",
+	    "facebook/webdriver": "*",
+	    "robmorgan/phinx": "*"
     },
 
     "extra": {
