@@ -1,0 +1,198 @@
+{
+  "sources": {
+    "database": {
+      "locked_version": "1.5.3",
+      "git": "git://github.com/opscode-cookbooks/database.git",
+      "ref": "0137ce6fabe5084fac69bc7aa1600b624c7e7e3f"
+    },
+    "logwatch": {
+      "locked_version": "1.1.1",
+      "git": "git://github.com/opscode-cookbooks/logwatch.git",
+      "ref": "5b2864e3a0389fc2fd56a37e4879bbba583b7a3e"
+    },
+    "logrotate": {
+      "locked_version": "1.4.1",
+      "git": "git://github.com/opscode-cookbooks/logrotate.git",
+      "ref": "46fb09722380fa0f696bb3861c082949455a56e5"
+    },
+    "apache2": {
+      "locked_version": "1.8.15",
+      "git": "git://github.com/opscode-cookbooks/apache2.git",
+      "ref": "baaa99ce12d61b0b04f32103418d8c4d4aac64b2"
+    },
+    "rsync": {
+      "locked_version": "0.8.5",
+      "git": "git://github.com/opscode-cookbooks/rsync.git",
+      "ref": "46693d8467c2d3f2ba93f071c7c74b2da700788d"
+    },
+    "postfix": {
+      "locked_version": "3.0.5",
+      "git": "git://github.com/opscode-cookbooks/postfix.git",
+      "ref": "761fe139e04b4ba77bec4c6d9b88f4c8b10ca787"
+    },
+    "xml": {
+      "locked_version": "1.2.1",
+      "git": "git://github.com/opscode-cookbooks/xml.git",
+      "ref": "f506685b0ba3c2581abf570482ea08d198891aaa"
+    },
+    "git": {
+      "locked_version": "2.8.5",
+      "git": "git://github.com/opscode-cookbooks/git.git",
+      "ref": "756480249aad81cef0313770d9fa9c37fccaed8d"
+    },
+    "subversion": {
+      "locked_version": "1.1.1",
+      "git": "git://github.com/opscode-cookbooks/subversion.git",
+      "ref": "2706704c6f20c66e811f6f6ae25e8e25e29d6bb1"
+    },
+    "vim": {
+      "locked_version": "1.0.2",
+      "git": "git://github.com/opscode-cookbooks/vim.git",
+      "ref": "88e8d018267d2cd5cfa3260ce55a0025f52dae6f"
+    },
+    "tmux": {
+      "locked_version": "1.4.1",
+      "git": "git://github.com/opscode-cookbooks/tmux.git",
+      "ref": "04dcea73b4fe68443364273572de7bf0b809dcd2"
+    },
+    "sudo": {
+      "locked_version": "2.2.3",
+      "git": "git://github.com/opscode-cookbooks/sudo.git",
+      "ref": "6a616bcf0c7e26918103bca976064996dcd08350"
+    },
+    "mongodb": {
+      "locked_version": "0.14.1",
+      "git": "git://github.com/edelight/chef-mongodb.git",
+      "ref": "bfee538a29be5e319b335b22976a07d27028ae30"
+    },
+    "aws": {
+      "locked_version": "1.0.1",
+      "git": "git://github.com/opscode-cookbooks/aws.git",
+      "ref": "f84de5cccb922f056b0c99a5e3b35328646d95b5"
+    },
+    "nodejs": {
+      "locked_version": "1.3.0",
+      "git": "git://github.com/ptahdunbar/nodejs-cookbook.git",
+      "ref": "108ea289fa212233ca7a607aa1cd35bef5496f6c"
+    },
+    "npm": {
+      "locked_version": "0.1.0",
+      "git": "git://github.com/ptahdunbar/npm-cookbook.git",
+      "ref": "99b854264db025da789806ef9629ad7fcf63a307"
+    },
+    "wp": {
+      "locked_version": "0.1.0",
+      "git": "git://github.com/ptahdunbar/wp-cookbook.git",
+      "ref": "8a0d54ae3b655d43d6a4b85a6036648c8fc8d3bb"
+    },
+    "php": {
+      "locked_version": "0.1.0",
+      "git": "git://github.com/ptahdunbar/php-cookbook.git",
+      "ref": "1e70d017ab5754ed81aedfe93b8906d07a1f0436"
+    },
+    "base": {
+      "locked_version": "0.2.0",
+      "git": "git://github.com/ptahdunbar/base-cookbook.git",
+      "ref": "0fbbad0720ebe07fbf854e5079f39dfa654955fb"
+    },
+    "users": {
+      "locked_version": "0.1.0",
+      "git": "git://github.com/ptahdunbar/users-cookbook.git",
+      "ref": "f9f971ca4e88d2168dbedb86556273c449fdb3f3"
+    },
+    "web": {
+      "locked_version": "0.1.0",
+      "git": "git://github.com/ptahdunbar/web-cookbook.git",
+      "ref": "12adacd8dfb51e9dc5d7d32361fd27f4762c7c3e"
+    },
+    "nginx": {
+      "locked_version": "2.0.5",
+      "git": "git://github.com/ptahdunbar/nginx.git",
+      "ref": "1d06cde2739c1e21bfe1c2c527df6cec93cbd0a8"
+    },
+    "mysql": {
+      "locked_version": "4.0.7",
+      "git": "git://github.com/ptahdunbar/mysql-cookbook.git",
+      "ref": "b2ff63cac87c8e2097075730165c1d6ca0dd5d57"
+    },
+    "db": {
+      "locked_version": "0.0.9",
+      "git": "git://github.com/ptahdunbar/db-cookbook.git",
+      "ref": "4d2547524892117beda06cfe99e4e8bca252d642"
+    },
+    "mariadb": {
+      "locked_version": "0.0.9",
+      "git": "git://github.com/ptahdunbar/mariadb-cookbook.git",
+      "ref": "f5be3dd9c6a4d40d59aa1609d0c22ddb981f15ec"
+    },
+    "redisio": {
+      "locked_version": "1.7.0",
+      "git": "git://github.com/brianbianco/redisio.git",
+      "ref": "be95852f73dcc9a8ef48db394044525ca48cfd70"
+    },
+    "timezone-ii": {
+      "locked_version": "0.2.0",
+      "git": "git://github.com/L2G/timezone-ii.git",
+      "ref": "97ff6559a1d87b8db9b536bfc32195245aadcda7"
+    },
+    "phpmyadmin": {
+      "locked_version": "1.0.6",
+      "git": "git://github.com/priestjim/chef-phpmyadmin.git",
+      "ref": "a7057fb19af048a67ca577e4544c8ff78a727e1c"
+    },
+    "postgresql": {
+      "locked_version": "3.3.4"
+    },
+    "apt": {
+      "locked_version": "2.3.0"
+    },
+    "build-essential": {
+      "locked_version": "1.4.2"
+    },
+    "openssl": {
+      "locked_version": "1.1.0"
+    },
+    "xfs": {
+      "locked_version": "1.1.0"
+    },
+    "perl": {
+      "locked_version": "1.2.0"
+    },
+    "dmg": {
+      "locked_version": "2.0.8"
+    },
+    "windows": {
+      "locked_version": "1.11.0"
+    },
+    "chef_handler": {
+      "locked_version": "1.1.4"
+    },
+    "yum": {
+      "locked_version": "2.4.2"
+    },
+    "runit": {
+      "locked_version": "1.4.0"
+    },
+    "python": {
+      "locked_version": "1.4.4"
+    },
+    "ssh_known_hosts": {
+      "locked_version": "1.1.0"
+    },
+    "partial_search": {
+      "locked_version": "1.0.6"
+    },
+    "bluepill": {
+      "locked_version": "2.3.0"
+    },
+    "rsyslog": {
+      "locked_version": "1.9.0"
+    },
+    "ohai": {
+      "locked_version": "1.1.12"
+    },
+    "ulimit": {
+      "locked_version": "0.3.2"
+    }
+  }
+}

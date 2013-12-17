@@ -24,16 +24,16 @@
  *
  * Use this to configure WordPress to a specific environment.
  */
-define('WP_ENV', 'production');
+define('WP_ENV', 'development');
 
 /** The name of the database for WordPress */
-define('DB_NAME', 'database_name_here');
+define('DB_NAME', 'wpss');
 
 /** MySQL database username */
-define('DB_USER', 'username_here');
+define('DB_USER', 'wpss');
 
 /** MySQL database password */
-define('DB_PASSWORD', 'password_here');
+define('DB_PASSWORD', '');
 
 /** MySQL hostname */
 define('DB_HOST', 'localhost');

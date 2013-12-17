@@ -1,0 +1,10 @@
+[
+    "vagrant-aws",
+    "vagrant-exec",
+    "vagrant-omnibus",
+    "vagrant-cachier",
+    "vagrant-pristine",
+    "vagrant-rackspace",
+    "vagrant-hostsupdater",
+    "vagrant-berkshelf"
+]
