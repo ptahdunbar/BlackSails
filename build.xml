@@ -23,7 +23,7 @@
     <property name="mysql.exec" value="mysql" />
 
     <target name="build"
-            depends="tests"
+            depends="tests,phing-all-the-things"
             description="Primary target used to invoke all main targets." />
 
     <target name="init"
@@ -232,18 +232,19 @@
         </if>
     </target>
 
-    <target name="loop-deps">
-        <foreach param="filename" absparam="absfilename" target="looper">
+    <target name="phing-all-the-things" depends="phing-all" />
+    <target name="phing-all">
+        <foreach param="filename" absparam="absfilename" target="phing-a-dependency">
             <fileset refid="dependencies" />
         </foreach>
     </target>
 
-    <target name="looper">
+    <target name="phing-a-dependency">
         <exec command="dirname ${absfilename}" outputProperty="depdir" />
         <echo msg="Composer install: ${depdir}" />
         <exec command="${composer.exec} install -d ${depdir}" />
         <echo msg="Phing: ${depdir}" />
-        <phing phingfile="${filename}" inheritAll="false" haltonfailure="true" />
+        <phing phingfile="${absfilename}" inheritAll="false" dir="${depdir}" />
     </target>
 
     <fileset id="tests" dir="${project.basedir}">

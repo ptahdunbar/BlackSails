@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "354195f7ab817a4da89ee53532277351",
+    "hash": "8cd5b915ed848111c3fddeb36da62027",
     "packages": [
         {
             "name": "composer/installers",
@@ -139,12 +139,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ptahdunbar/wp-skeleton-theme.git",
-                "reference": "65c13f55296afa8c750aa5c7f95e3d003746c677"
+                "reference": "53803aa53f27f88349364047bf2945a896ecb58a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ptahdunbar/wp-skeleton-theme/zipball/65c13f55296afa8c750aa5c7f95e3d003746c677",
-                "reference": "65c13f55296afa8c750aa5c7f95e3d003746c677",
+                "url": "https://api.github.com/repos/ptahdunbar/wp-skeleton-theme/zipball/53803aa53f27f88349364047bf2945a896ecb58a",
+                "reference": "53803aa53f27f88349364047bf2945a896ecb58a",
                 "shasum": ""
             },
             "require": {
@@ -184,7 +184,7 @@
                 "themes",
                 "wordpress"
             ],
-            "time": "2013-12-17 18:13:40"
+            "time": "2013-12-17 18:38:41"
         },
         {
             "name": "wordpress/wordpress",
