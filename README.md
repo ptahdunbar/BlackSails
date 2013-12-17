@@ -1,6 +1,6 @@
-# WP Skeleton Site - WIP.
+# WP Skeleton Site - WIP. [![Build Status](https://travis-ci.org/ptahdunbar/wp-skeleton-site.png?branch=develop)](https://travis-ci.org/ptahdunbar/wp-skeleton-site)
 
-This is simply a skeleton repo for a WordPress site. Use it to jump-start your WordPress site repos, or fork it and customize it to your own liking!
+> This is a work in progress. Very alpha, subject to sweeping changes at random intervals :)
 
 ## Requirements
 * PHP 5.4+
@@ -14,6 +14,14 @@ vagrant bindler setup
 vagrant plugin bundle
 vagrant up
 ```
+
+## Features
+
+* Supports [PHPUnit](http://phpunit.de/manual/) and [Behat](http://behat.org/) for automated testing.
+* Supports [Travis CI](https://travis-ci.org/) for continuous integration.
+* Supports [Phing](http://www.phing.info/) for task automation.
+* Supports [Composer](http://getcomposer.org/) and [Bower](http://bower.io/) for vendoring dependencies.
+* Includes a `.pot` as a starting translation file.
 
 #### Thanks
 * [WPSkeleton](https://github.com/markjaquith/WordPress-Skeleton), thx [@markjaquith](https://github.com/markjaquith)!
