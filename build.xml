@@ -232,19 +232,19 @@
         </if>
     </target>
 
-	<target name="loop-deps">
-		<foreach param="filename" absparam="absfilename" target="looper">
-			<fileset refid="dependencies" />
-		</foreach>
-	</target>
+    <target name="loop-deps">
+        <foreach param="filename" absparam="absfilename" target="looper">
+            <fileset refid="dependencies" />
+        </foreach>
+    </target>
 
-	<target name="looper">
-		<exec command="dirname ${absfilename}" outputProperty="depdir" />
-		<echo msg="Composer install: ${depdir}" />
-		<exec command="${composer.exec} install -d ${depdir}" />
-		<echo msg="Phing: ${depdir}" />
-		<phing phingfile="${filename}" inheritAll="false" haltonfailure="true" />
-	</target>
+    <target name="looper">
+        <exec command="dirname ${absfilename}" outputProperty="depdir" />
+        <echo msg="Composer install: ${depdir}" />
+        <exec command="${composer.exec} install -d ${depdir}" />
+        <echo msg="Phing: ${depdir}" />
+        <phing phingfile="${filename}" inheritAll="false" haltonfailure="true" />
+    </target>
 
     <fileset id="tests" dir="${project.basedir}">
         <include name="tests/behat/**/**.php" />
@@ -255,8 +255,8 @@
         <include name="public/content/mu-plugins/*.php" />
     </fileset>
 
-	<fileset id="dependencies" dir="${project.basedir}">
-		<include name="public/content/plugins/*/build.xml" />
-		<include name="public/content/themes/*/build.xml" />
-	</fileset>
+    <fileset id="dependencies" dir="${project.basedir}">
+        <include name="public/content/plugins/*/build.xml" />
+        <include name="public/content/themes/*/build.xml" />
+    </fileset>
 </project>
