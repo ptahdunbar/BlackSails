@@ -39,13 +39,13 @@
 
     <target name="tests-mu-plugins" depends="phpunit,behat" />
 
-    <target name="phpunit" depends="wp-tests-config-prepare" description="Run PHPUnit test suite">
+    <target name="phpunit" depends="prepare" description="Run PHPUnit test suite">
         <exec executable="${phpunit.exec}"
               passthru="true"
               checkreturn="true" />
     </target>
 
-    <target name="behat" depends="wp-tests-config-prepare" description="Run Behat features">
+    <target name="behat" depends="prepare" description="Run Behat features">
         <exec executable="${behat.exec}"
               passthru="true"
               checkreturn="true" />
@@ -57,7 +57,7 @@
         </foreach>
     </target>
 
-    <target name="prepare" depends="wp-tests-db-prepare,wp-tests-config-prepare" description="Prepare the environment" />
+    <target name="prepare" depends="init,wp-tests-db-prepare,wp-tests-config-prepare" description="Prepare the environment" />
 
     <target name="tests-setup">
         <exec command="basename ${project.basedir}" outputProperty="project.dirname" />
@@ -145,7 +145,7 @@
         <echo msg="OK! Updated WP tests config: ${wp.tests_abspath.resolved}/wp-tests-config.php" />
     </target>
 
-    <target name="wp-tests-db-prepare" depends="tests-setup,mysql-setup">
+    <target name="wp-tests-db-prepare" depends="tests-setup">
         <exec executable="${mysql.exec}" passthru="true" checkreturn="true" escape="false">
             <arg value="--user=${mysql.user}" />
             <arg value="--password=${mysql.pass}" />
@@ -159,15 +159,6 @@
         </exec>
 
         <echo msg="OK! MySQL database created: ${mysql.db}" />
-    </target>
-
-    <target name="mysql-setup">
-        <exec executable="${mysql.exec}" checkreturn="true" escape="false">
-            <arg value="--user=${mysql.user}" />
-            <arg value="--password=${mysql.pass}" />
-            <arg value="--execute=help;" />
-        </exec>
-        <echo msg="OK! MySQL connection works." />
     </target>
 
     <target name="init" depends="load-properties" />

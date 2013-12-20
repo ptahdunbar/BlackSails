@@ -1,6 +1,7 @@
 # System files
 .DS_Store
 .phplint.cache
+build.properties
 selenium-server.jar
 
 # IDE

@@ -36,9 +36,9 @@
       "ref": "f506685b0ba3c2581abf570482ea08d198891aaa"
     },
     "git": {
-      "locked_version": "2.8.5",
+      "locked_version": "2.9.1",
       "git": "git://github.com/opscode-cookbooks/git.git",
-      "ref": "756480249aad81cef0313770d9fa9c37fccaed8d"
+      "ref": "fe2713e528096e5d22441fe53808c79ea77fd0b3"
     },
     "subversion": {
       "locked_version": "1.1.1",
@@ -63,7 +63,7 @@
     "mongodb": {
       "locked_version": "0.14.1",
       "git": "git://github.com/edelight/chef-mongodb.git",
-      "ref": "bfee538a29be5e319b335b22976a07d27028ae30"
+      "ref": "a68eb48a78ce3a94eba3757e7218722e2c6201d0"
     },
     "aws": {
       "locked_version": "1.0.1",
@@ -167,11 +167,14 @@
     "chef_handler": {
       "locked_version": "1.1.4"
     },
+    "runit": {
+      "locked_version": "1.4.0"
+    },
     "yum": {
       "locked_version": "2.4.2"
     },
-    "runit": {
-      "locked_version": "1.4.0"
+    "yum-epel": {
+      "locked_version": "0.2.0"
     },
     "python": {
       "locked_version": "1.4.4"
