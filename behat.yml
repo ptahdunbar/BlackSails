@@ -4,8 +4,10 @@ default:
     bootstrap:  %behat.paths.features%/bootstrap
   extensions:
     Behat\MinkExtension\Extension:
-      base_url: ''
-      goutte:    ~
+      base_url: 'https://wpss.dev'
+      goutte:
+        guzzle_parameters:
+          ssl.certificate_authority: false
       selenium2: ~
 
 development:

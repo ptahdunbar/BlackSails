@@ -12,7 +12,7 @@
     <property name="mysql.exec" value="mysql" />
     <property name="mysql.host" value="localhost" />
     <property name="mysql.user" value="root" />
-    <property name="mysql.pass" value="root" />
+    <property name="mysql.pass" value="" />
     <property name="mysql.db" value="wordpress_tests" />
 
     <property name="composer.exec" value="composer" />
@@ -179,12 +179,16 @@
 
     <target name="load-properties">
         <!-- Override default properties if custom build.properties exists -->
-        <available property="project.properties.file"
-                   file="${project.basedir}/build.properties"
-                   value="${project.basedir}/build.properties" />
-
-        <property file="${project.properties.file}" override="true" />
-        <echo msg="Build properties loaded!" />
+	    <available file="${project.basedir}/build.properties"
+			       property="project.properties.file"
+	               value="${project.basedir}/build.properties" />
+	    <if>
+		    <isset property="project.properties.file" />
+		    <then>
+			    <property file="${project.basedir}/build.properties" override="true" />
+			    <echo msg="Build properties loaded!" />
+		    </then>
+	    </if>
     </target>
 
     <target name="selenium" depends="selenium-prepare">
