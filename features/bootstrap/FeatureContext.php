@@ -14,12 +14,19 @@ use Behat\Gherkin\Node\PyStringNode,
     Behat\Gherkin\Node\TableNode
 ;
 
-require_once 'vendor/autoload.php';
+/**
+ * Require 3rd-party libraries here:
+ */
 
-require_once 'PHPUnit/Autoload.php';
-require_once 'PHPUnit/Framework/Assert/Functions.php';
+// Composer
+include_once 'vendor/autoload.php';
 
-require_once 'tests/bootstrap-wp.php';
+// PHPUnit Assertion functions
+include_once 'PHPUnit/Autoload.php';
+include_once 'PHPUnit/Framework/Assert/Functions.php';
+
+// Bootstrap WordPress
+include_once 'tests/bootstrap.php';
 
 class FeatureContext extends BehatContext
 {
@@ -38,4 +45,16 @@ class FeatureContext extends BehatContext
     {
         $this->useContext('test', new TestContext($parameters));
     }
+
+//
+// Place your definition and hook methods here:
+//
+//    /**
+//     * @Given /^I have done something with "([^"]*)"$/
+//     */
+//    public function iHaveDoneSomethingWith($argument)
+//    {
+//        doSomethingWith($argument);
+//    }
+//
 }

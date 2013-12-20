@@ -1,6 +1,6 @@
 <?php
 
-class IntegrationTest extends WP_UnitTestCase
+class ExampleTest extends WP_UnitTestCase
 {
     /**
      * Returns an array of all required plugins that need to be active in
