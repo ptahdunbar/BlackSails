@@ -18,7 +18,7 @@ env:
 
 before_script:
     - composer install
-    - echo "build.db_pass=" >> build.properties
+    - echo "mysql.pass=" >> build.properties
     - vendor/bin/phing prepare
 
 script: vendor/bin/phing
