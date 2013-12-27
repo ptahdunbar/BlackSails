@@ -109,7 +109,6 @@
                 <mkdir dir="${wp.tests_importer_plugin.resolved}" />
                 <echo msg="Downloading WordPress Importer plugin into test framework" />
                 <exec command="${svn.exec} checkout --non-interactive --trust-server-cert https://plugins.svn.wordpress.org/wordpress-importer/trunk ${wp.tests_importer_plugin.resolved}"
-                      passthru="true"
                       checkreturn="true" />
             </then>
             <else>
