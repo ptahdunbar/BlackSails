@@ -2,12 +2,12 @@
 <!-- http://www.phing.info/docs/stable/hlhtml/index.html -->
 <project name="WP Skeleton Site" default="build" basedir=".">
 
-    <property name="wp.repo" value="git://github.com/WordPress/WordPress.git" />
     <property name="wp.abspath" value="./public/wp" />
     <property name="wp.content" value="./public/content" />
     <property name="wp.tests_repo" value="http://develop.svn.wordpress.org/trunk" />
     <property name="wp.tests_multisite" value="false" />
     <property name="wp.tests_abspath" value="/tmp/wordpress-tests" />
+    <property name="wp.tests_override_config_file" value="true" />
 
     <property name="mysql.exec" value="mysql" />
     <property name="mysql.host" value="localhost" />
@@ -131,7 +131,7 @@
 
         <copy file="${tests_dir.resolved}/wp-tests-config-sample.php"
               tofile="${tests_dir.resolved}/wp-tests-config.php"
-              overwrite="true">
+              overwrite="${wp.tests_override_config_file}">
             <filterchain>
                 <replaceregexp>
                     <regexp pattern="youremptytestdbnamehere" replace="${mysql.db}" ignoreCase="true" />

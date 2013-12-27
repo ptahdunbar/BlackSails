@@ -1,9 +1,11 @@
-# System files
+# System files & Artifacts
 .DS_Store
 .phplint.cache
-build.properties
 build
+build.properties
 selenium-server.jar
+node_modules
+npm-debug.log
 
 # IDE
 .idea
@@ -16,7 +18,8 @@ varrgrant.json
 # Composer
 vendor
 
-# WordPress
+# Project files
+tests/wp-tests-config.php
 public/wp
 public/local-config.php
 public/content/themes/wp-skeleton-theme
