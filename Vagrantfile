@@ -214,7 +214,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                     chef.roles_path = "ops/roles"
                     chef.environments_path = "ops/environments"
 
+                    # Register custom chef attributes
+                    chef.json = box["chef"]["json"] if box["chef"]["json"]
+
                     chef.environment = box["chef"]["environment"] if box["chef"]["environment"]
+                    chef.json["chef_environment"] = box["chef"]["environment"] if box["chef"]["environment"]
 
                     if box["chef"]["recipes"]
                         if box["chef"]["recipes"].kind_of? String
@@ -235,9 +239,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                             end
                         end
                     end
-
-                    # Register custom chef attributes
-                    chef.json = box["chef"]["json"] if box["chef"]["json"]
                 end
             end
         end

@@ -46,9 +46,9 @@
       "ref": "6ac4a3b9f24963cf676e837171a12f5c5668e012"
     },
     "vim": {
-      "locked_version": "1.1.1",
+      "locked_version": "1.0.2",
       "git": "git://github.com/opscode-cookbooks/vim.git",
-      "ref": "268885dfe314de4c72bad8865fbf8bd1c166a9a6"
+      "ref": "8a3c9e07a0b49176d346494ca5a1d45ba27f77ed"
     },
     "tmux": {
       "locked_version": "1.4.1",
@@ -71,49 +71,49 @@
       "ref": "f84de5cccb922f056b0c99a5e3b35328646d95b5"
     },
     "nodejs": {
-      "locked_version": "1.3.0",
+      "locked_version": "0.0.9",
       "git": "git://github.com/ptahdunbar/nodejs-cookbook.git",
-      "ref": "108ea289fa212233ca7a607aa1cd35bef5496f6c"
+      "ref": "d668b5c782475f83fa509b3126aec59387cf5965"
     },
     "npm": {
-      "locked_version": "0.1.0",
+      "locked_version": "0.0.9",
       "git": "git://github.com/ptahdunbar/npm-cookbook.git",
-      "ref": "99b854264db025da789806ef9629ad7fcf63a307"
+      "ref": "d1b3c71ac6ce02b89f5c42ba912bfe7ba52d157b"
     },
     "wp": {
-      "locked_version": "0.1.0",
+      "locked_version": "0.0.9",
       "git": "git://github.com/ptahdunbar/wp-cookbook.git",
-      "ref": "8a0d54ae3b655d43d6a4b85a6036648c8fc8d3bb"
+      "ref": "ca92a6fee3f7d0f6161553f7d3df320b56a40468"
     },
     "php": {
-      "locked_version": "0.1.0",
+      "locked_version": "0.0.9",
       "git": "git://github.com/ptahdunbar/php-cookbook.git",
-      "ref": "59a1a1c907309c7e7725934b62e58092a9195ab1"
+      "ref": "42e1c96deafe7cfcc635c0220d210408baa927eb"
     },
     "base": {
-      "locked_version": "0.2.0",
+      "locked_version": "0.0.9",
       "git": "git://github.com/ptahdunbar/base-cookbook.git",
-      "ref": "0fbbad0720ebe07fbf854e5079f39dfa654955fb"
+      "ref": "e61b65d59239aa5011a9aa0ba16955c9a6e38c7d"
     },
     "users": {
-      "locked_version": "0.1.0",
+      "locked_version": "0.0.9",
       "git": "git://github.com/ptahdunbar/users-cookbook.git",
-      "ref": "f9f971ca4e88d2168dbedb86556273c449fdb3f3"
+      "ref": "1bcc85da9137734bb1597aef6388a4ce4c52410c"
     },
     "web": {
-      "locked_version": "0.1.0",
+      "locked_version": "0.0.9",
       "git": "git://github.com/ptahdunbar/web-cookbook.git",
-      "ref": "12adacd8dfb51e9dc5d7d32361fd27f4762c7c3e"
+      "ref": "3561b146dc241319f8ef416fdba2289afe19631e"
     },
     "nginx": {
-      "locked_version": "2.0.5",
+      "locked_version": "0.0.9",
       "git": "git://github.com/ptahdunbar/nginx.git",
-      "ref": "1d06cde2739c1e21bfe1c2c527df6cec93cbd0a8"
+      "ref": "e23af3fb55b5c57b9d0129eef62239fa8dfdf441"
     },
     "mysql": {
-      "locked_version": "4.0.7",
+      "locked_version": "0.0.9",
       "git": "git://github.com/ptahdunbar/mysql-cookbook.git",
-      "ref": "b2ff63cac87c8e2097075730165c1d6ca0dd5d57"
+      "ref": "d7d5375574f32702b42ce33ef7144408d1735cdd"
     },
     "db": {
       "locked_version": "0.0.9",
@@ -136,9 +136,9 @@
       "ref": "97ff6559a1d87b8db9b536bfc32195245aadcda7"
     },
     "phpmyadmin": {
-      "locked_version": "1.0.6",
+      "locked_version": "1.0.7",
       "git": "git://github.com/priestjim/chef-phpmyadmin.git",
-      "ref": "a7057fb19af048a67ca577e4544c8ff78a727e1c"
+      "ref": "d873fa7dbc97409215f475ff6c61df7f941298bd"
     },
     "postgresql": {
       "locked_version": "3.3.4"
@@ -168,10 +168,10 @@
       "locked_version": "1.1.4"
     },
     "runit": {
-      "locked_version": "1.4.0"
+      "locked_version": "1.4.6"
     },
     "yum": {
-      "locked_version": "2.4.2"
+      "locked_version": "2.4.4"
     },
     "yum-epel": {
       "locked_version": "0.2.0"
