@@ -1,20 +1,6 @@
 <?php
 /**
- * The local configuration file for WordPress.
- *
- * This file extends the default configurations defined in wp-config.php
- * with environment specific configuration details. This approach is
- * useful when developing within a team and for complex deployment processes.
- *
- * !!!!! Start this file off with the environment this install is configured to.
- *
- * Example:
- * define('WP_ENV', 'development');
- *
- * !!!!! This file must include the MySQL database connection details
- * (DB_NAME, DB_USER, DB_PASSWORD, DB_HOST).
- *
- * In addition, you may also specific environment specific parameters.
+ * The tests configuration file for WordPress.
  */
 
 /**

@@ -6,6 +6,7 @@ use Behat\Behat\Context\ClosuredContextInterface,
 ;
 
 use Behat\Behat\Exception\PendingException;
+use Behat\Behat\Event\SuiteEvent;
 
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\MinkExtension\Context\MinkDictionary;
@@ -25,7 +26,7 @@ include_once 'vendor/autoload.php';
 include_once 'PHPUnit/Autoload.php';
 include_once 'PHPUnit/Framework/Assert/Functions.php';
 
-// Bootstrap WordPress
+// Bootstrap the WordPress environment.
 include_once 'tests/bootstrap.php';
 
 class FeatureContext extends BehatContext

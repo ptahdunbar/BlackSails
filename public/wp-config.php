@@ -84,7 +84,7 @@ if ( ! defined('WP_CONTENT_DIR') ) {
 }
 
 /** Custom content url. */
-if ( ! defined('WP_CONTENT_URL') ) {
+if ( ! defined('WP_CONTENT_URL') && isset($_SERVER['HTTP_HOST']) ) {
     define( 'WP_CONTENT_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/content' );
 }
 
@@ -117,6 +117,8 @@ if ( ! defined('WP_MEMORY_LIMIT') ) {
 if ( ! defined('WP_DEFAULT_THEME') ) {
     define('WP_DEFAULT_THEME', 'wp-skeleton-theme');
 }
+
+
 
 /**#@-*/
 

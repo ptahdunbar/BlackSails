@@ -1,0 +1,2 @@
+path: public/wp
+require: ops/scripts/load-wpcli-commands.php

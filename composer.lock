@@ -3,20 +3,20 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "8cd5b915ed848111c3fddeb36da62027",
+    "hash": "357d75b6f08d20789f16d79a1d385de4",
     "packages": [
         {
             "name": "composer/installers",
-            "version": "v1.0.7",
+            "version": "v1.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "d792632d27e1980d921cbbba12eab7b888338d4c"
+                "reference": "c87cfc35882eb50df3eef1734bfa52fbcd6c782c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/d792632d27e1980d921cbbba12eab7b888338d4c",
-                "reference": "d792632d27e1980d921cbbba12eab7b888338d4c",
+                "url": "https://api.github.com/repos/composer/installers/zipball/c87cfc35882eb50df3eef1734bfa52fbcd6c782c",
+                "reference": "c87cfc35882eb50df3eef1734bfa52fbcd6c782c",
                 "shasum": ""
             },
             "replace": {
@@ -61,6 +61,7 @@
                 "codeigniter",
                 "concrete5",
                 "drupal",
+                "elgg",
                 "fuelphp",
                 "installer",
                 "joomla",
@@ -77,7 +78,52 @@
                 "wordpress",
                 "zend"
             ],
-            "time": "2013-10-24 16:13:49"
+            "time": "2013-12-24 18:04:46"
+        },
+        {
+            "name": "mustache/mustache",
+            "version": "v2.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bobthecow/mustache.php.git",
+                "reference": "dd528e765afcaaae20ce3bebdda3162456d93b47"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bobthecow/mustache.php/zipball/dd528e765afcaaae20ce3bebdda3162456d93b47",
+                "reference": "dd528e765afcaaae20ce3bebdda3162456d93b47",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Mustache": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Justin Hileman",
+                    "email": "justin@justinhileman.info",
+                    "homepage": "http://justinhileman.com"
+                }
+            ],
+            "description": "A Mustache implementation in PHP.",
+            "homepage": "https://github.com/bobthecow/mustache.php",
+            "keywords": [
+                "mustache",
+                "templating"
+            ],
+            "time": "2013-12-14 20:57:43"
         },
         {
             "name": "ptahdunbar/wp-skeleton-plugin",
@@ -85,12 +131,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ptahdunbar/wp-skeleton-plugin.git",
-                "reference": "7eea828ce82f01ccc8bde83a27d6394669a77fed"
+                "reference": "155fd001bdf8059e4a8aa74942ee2514d92a99d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ptahdunbar/wp-skeleton-plugin/zipball/7eea828ce82f01ccc8bde83a27d6394669a77fed",
-                "reference": "7eea828ce82f01ccc8bde83a27d6394669a77fed",
+                "url": "https://api.github.com/repos/ptahdunbar/wp-skeleton-plugin/zipball/155fd001bdf8059e4a8aa74942ee2514d92a99d1",
+                "reference": "155fd001bdf8059e4a8aa74942ee2514d92a99d1",
                 "shasum": ""
             },
             "require": {
@@ -131,7 +177,7 @@
                 "themes",
                 "wordpress"
             ],
-            "time": "2013-12-17 10:29:16"
+            "time": "2013-12-19 02:39:50"
         },
         {
             "name": "ptahdunbar/wp-skeleton-theme",
@@ -139,12 +185,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ptahdunbar/wp-skeleton-theme.git",
-                "reference": "53803aa53f27f88349364047bf2945a896ecb58a"
+                "reference": "de14c97878d88748e63b390d3f017e674634f728"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ptahdunbar/wp-skeleton-theme/zipball/53803aa53f27f88349364047bf2945a896ecb58a",
-                "reference": "53803aa53f27f88349364047bf2945a896ecb58a",
+                "url": "https://api.github.com/repos/ptahdunbar/wp-skeleton-theme/zipball/de14c97878d88748e63b390d3f017e674634f728",
+                "reference": "de14c97878d88748e63b390d3f017e674634f728",
                 "shasum": ""
             },
             "require": {
@@ -184,7 +230,142 @@
                 "themes",
                 "wordpress"
             ],
-            "time": "2013-12-17 18:38:41"
+            "time": "2013-12-18 12:05:41"
+        },
+        {
+            "name": "rhumsaa/array_column",
+            "version": "1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ramsey/array_column.git",
+                "reference": "c09744baae0e023d1021055f9c65755b88a9721f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ramsey/array_column/zipball/c09744baae0e023d1021055f9c65755b88a9721f",
+                "reference": "c09744baae0e023d1021055f9c65755b88a9721f",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/array_column.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ben Ramsey",
+                    "homepage": "http://benramsey.com"
+                }
+            ],
+            "description": "Provides functionality for array_column() to projects using PHP earlier than version 5.5.",
+            "homepage": "https://github.com/ramsey/array_column",
+            "keywords": [
+                "array",
+                "array_column",
+                "column"
+            ],
+            "time": "2013-07-22 16:12:38"
+        },
+        {
+            "name": "rmccue/requests",
+            "version": "v1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rmccue/Requests.git",
+                "reference": "756374edd59ac69268ed35481a506ebd4e732525"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rmccue/Requests/zipball/756374edd59ac69268ed35481a506ebd4e732525",
+                "reference": "756374edd59ac69268ed35481a506ebd4e732525",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "require-dev": {
+                "satooshi/php-coveralls": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Requests": "library/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "ISC"
+            ],
+            "authors": [
+                {
+                    "name": "Ryan McCue",
+                    "homepage": "http://ryanmccue.info"
+                }
+            ],
+            "description": "A HTTP library written in PHP, for human beings.",
+            "homepage": "http://github.com/rmccue/Requests",
+            "keywords": [
+                "curl",
+                "fsockopen",
+                "http",
+                "idna",
+                "ipv6",
+                "iri",
+                "sockets"
+            ],
+            "time": "2013-10-06 13:30:32"
+        },
+        {
+            "name": "symfony/finder",
+            "version": "v2.3.8",
+            "target-dir": "Symfony/Component/Finder",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Finder.git",
+                "reference": "fc0fbd5a4eec06cad631311726e7d939e770d82d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Finder/zipball/fc0fbd5a4eec06cad631311726e7d939e770d82d",
+                "reference": "fc0fbd5a4eec06cad631311726e7d939e770d82d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Finder\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Finder Component",
+            "homepage": "http://symfony.com",
+            "time": "2013-11-25 14:49:41"
         },
         {
             "name": "wordpress/wordpress",
@@ -204,6 +385,101 @@
                 "composer/installers": "~1.0"
             },
             "type": "drupal-module"
+        },
+        {
+            "name": "wp-cli/php-cli-tools",
+            "version": "v0.9.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wp-cli/php-cli-tools.git",
+                "reference": "339f50279cc7494b87343689ef664896bd5b5dc1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wp-cli/php-cli-tools/zipball/339f50279cc7494b87343689ef664896bd5b5dc1",
+                "reference": "339f50279cc7494b87343689ef664896bd5b5dc1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "cli": "lib/"
+                },
+                "files": [
+                    "lib/cli/cli.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "James Logsdon",
+                    "email": "jlogsdon@php.net",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Console utilities for PHP",
+            "homepage": "http://github.com/jlogsdon/php-cli-tools",
+            "keywords": [
+                "cli",
+                "console"
+            ],
+            "time": "2013-06-14 16:35:34"
+        },
+        {
+            "name": "wp-cli/wp-cli",
+            "version": "v0.13.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wp-cli/wp-cli.git",
+                "reference": "a7eaaecc62b8f5004cdf3b32273ed04884cbca2a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wp-cli/wp-cli/zipball/a7eaaecc62b8f5004cdf3b32273ed04884cbca2a",
+                "reference": "a7eaaecc62b8f5004cdf3b32273ed04884cbca2a",
+                "shasum": ""
+            },
+            "require": {
+                "mustache/mustache": "~2.4",
+                "php": ">=5.3.2",
+                "rhumsaa/array_column": "~1.1",
+                "rmccue/requests": "~1.6",
+                "symfony/finder": "~2.3",
+                "wp-cli/php-cli-tools": "0.9.3"
+            },
+            "suggest": {
+                "psy/psysh": "Enhanced `wp shell` functionality"
+            },
+            "bin": [
+                "bin/wp.bat",
+                "bin/wp"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "WP_CLI": "php"
+                },
+                "files": [
+                    "php/Spyc.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A command line interface for WordPress",
+            "homepage": "http://wp-cli.org",
+            "keywords": [
+                "cli",
+                "wordpress"
+            ],
+            "time": "2013-11-30 13:14:44"
         }
     ],
     "packages-dev": [
@@ -1490,61 +1766,6 @@
             "time": "2013-11-22 08:54:11"
         },
         {
-            "name": "robmorgan/phinx",
-            "version": "v0.2.9",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/robmorgan/phinx.git",
-                "reference": "c9d6fa7f053f783d94e3c3ade99dbeec16805368"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/robmorgan/phinx/zipball/c9d6fa7f053f783d94e3c3ade99dbeec16805368",
-                "reference": "c9d6fa7f053f783d94e3c3ade99dbeec16805368",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.2",
-                "symfony/class-loader": "2.*",
-                "symfony/config": "2.*",
-                "symfony/console": "2.*",
-                "symfony/yaml": "2.*"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "3.7.*"
-            },
-            "bin": [
-                "bin/phinx"
-            ],
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Phinx": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Rob Morgan",
-                    "email": "robbym@gmail.com",
-                    "homepage": "http://robmorgan.id.au"
-                }
-            ],
-            "description": "Phinx makes it ridiculously easy to manage the database migrations for your PHP app.",
-            "homepage": "http://phinx.org",
-            "keywords": [
-                "database",
-                "database migrations",
-                "db",
-                "migrations",
-                "phinx"
-            ],
-            "time": "2013-11-16 13:49:20"
-        },
-        {
             "name": "symfony/browser-kit",
             "version": "v2.4.0",
             "target-dir": "Symfony/Component/BrowserKit",
@@ -1598,56 +1819,6 @@
             "description": "Symfony BrowserKit Component",
             "homepage": "http://symfony.com",
             "time": "2013-11-23 21:17:02"
-        },
-        {
-            "name": "symfony/class-loader",
-            "version": "v2.4.0",
-            "target-dir": "Symfony/Component/ClassLoader",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/ClassLoader.git",
-                "reference": "6a2ebedbc780130f07b3a15363743d08eb46820c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/6a2ebedbc780130f07b3a15363743d08eb46820c",
-                "reference": "6a2ebedbc780130f07b3a15363743d08eb46820c",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "require-dev": {
-                "symfony/finder": "~2.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.4-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Symfony\\Component\\ClassLoader\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony ClassLoader Component",
-            "homepage": "http://symfony.com",
-            "time": "2013-11-26 16:40:27"
         },
         {
             "name": "symfony/config",
@@ -2013,53 +2184,6 @@
             "time": "2013-11-16 15:13:54"
         },
         {
-            "name": "symfony/finder",
-            "version": "v2.3.8",
-            "target-dir": "Symfony/Component/Finder",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/Finder.git",
-                "reference": "fc0fbd5a4eec06cad631311726e7d939e770d82d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Finder/zipball/fc0fbd5a4eec06cad631311726e7d939e770d82d",
-                "reference": "fc0fbd5a4eec06cad631311726e7d939e770d82d",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.3-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Symfony\\Component\\Finder\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony Finder Component",
-            "homepage": "http://symfony.com",
-            "time": "2013-11-25 14:49:41"
-        },
-        {
             "name": "symfony/process",
             "version": "v2.4.0",
             "target-dir": "Symfony/Component/Process",
@@ -2258,6 +2382,69 @@
                 "rainbow"
             ],
             "time": "2013-02-14 01:28:47"
+        },
+        {
+            "name": "whatthejeff/fab-phpunit-resultprinter",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/whatthejeff/fab-phpunit-resultprinter.git",
+                "reference": "8b5d891f6ef942147371d4ca11646d92d790d936"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/whatthejeff/fab-phpunit-resultprinter/zipball/8b5d891f6ef942147371d4ca11646d92d790d936",
+                "reference": "8b5d891f6ef942147371d4ca11646d92d790d936",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "whatthejeff/fab": ">=1.0.0"
+            },
+            "require-dev": {
+                "pear-pear/pear": "1.9.4",
+                "phpunit/php-code-coverage": "1.3.*@dev",
+                "phpunit/php-file-iterator": ">=1.3.1@dev",
+                "phpunit/php-text-template": ">=1.1.1@dev",
+                "phpunit/php-timer": ">=1.1.0@dev",
+                "phpunit/phpunit": "3.8.*@dev",
+                "phpunit/phpunit-mock-objects": "1.3.*@dev",
+                "sebastian/diff": ">=1.0.0@dev",
+                "sebastian/exporter": ">=1.0.0@dev",
+                "sebastian/version": ">=1.0.0@dev"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Fab": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jeff Welch",
+                    "email": "whatthejeff@gmail.com"
+                }
+            ],
+            "description": "Make your unit tests fabulous!",
+            "homepage": "http://github.com/whatthejeff/fab-phpunit-resultprinter",
+            "keywords": [
+                "colorful",
+                "fab",
+                "fabulous",
+                "phpunit",
+                "rainbow",
+                "tests"
+            ],
+            "time": "2013-10-30 06:06:45"
         },
         {
             "name": "whatthejeff/nyancat-phpunit-resultprinter",

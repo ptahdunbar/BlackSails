@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- http://www.phing.info/docs/stable/hlhtml/index.html -->
 <project name="WP Skeleton Site" default="build" basedir=".">
 
     <property name="wp.repo" value="git://github.com/WordPress/WordPress.git" />
     <property name="wp.abspath" value="./public/wp" />
     <property name="wp.content" value="./public/content" />
-    <property name="wp.version" value="3.8-branch" />
-    <property name="wp.tests_repo" value="http://develop.svn.wordpress.org/trunk/" />
+    <property name="wp.tests_repo" value="http://develop.svn.wordpress.org/trunk" />
     <property name="wp.tests_multisite" value="false" />
     <property name="wp.tests_abspath" value="/tmp/wordpress-tests" />
 
@@ -23,6 +23,7 @@
     <property name="java.exec" value="java" />
     <property name="selenium.exec" value="${project.basedir}/selenium-server.jar" />
 
+    <property name="tests_dir" value="./tests" />
     <property name="selenium.download_url" value="http://selenium.googlecode.com/files/selenium-server-standalone-2.38.0.jar" />
     <property name="phplint.cachefile" value="${project.basedir}/.phplint.cache" />
 
@@ -30,22 +31,24 @@
             depends="inspect,tests"
             description="Primary target used to invoke all the targets." />
 
-    <target name="tests" description="TEST ALL THE THINGS!" depends="tests-mu-plugins" />
     <target name="inspect" description="LINT ALL THE THINGS!" depends="lint" />
+    <target name="tests" description="TEST ALL THE THINGS!" depends="phpunit,behat" />
+
+    <target name="prepare"
+            depends="init,wp-tests-db-prepare,wp-tests-config-prepare"
+            description="Prepare and configures the environment." />
 
     <target name="lint"
             depends="init,lint-php"
-            description="Check mu-plugins for syntax errors." />
+            description="Check the mu-plugins directory for syntax errors." />
 
-    <target name="tests-mu-plugins" depends="phpunit,behat" />
-
-    <target name="phpunit" depends="prepare" description="Run PHPUnit test suite">
+    <target name="phpunit" depends="prepare" description="Run the PHPUnit test suite">
         <exec executable="${phpunit.exec}"
               passthru="true"
               checkreturn="true" />
     </target>
 
-    <target name="behat" depends="prepare" description="Run Behat features">
+    <target name="behat" depends="prepare" description="Run the Behat feature suite">
         <exec executable="${behat.exec}"
               passthru="true"
               checkreturn="true" />
@@ -57,8 +60,6 @@
         </foreach>
     </target>
 
-    <target name="prepare" depends="init,wp-tests-db-prepare,wp-tests-config-prepare" description="Prepare the environment" />
-
     <target name="tests-setup">
         <exec command="basename ${project.basedir}" outputProperty="project.dirname" />
         <resolvepath propertyName="wp.abspath.resolved" file="${wp.abspath}" />
@@ -67,6 +68,8 @@
         <property name="wp.content.resolved" value="${wp.content.resolved}/" override="true" />
         <resolvepath propertyName="wp.tests_abspath.resolved" file="${wp.tests_abspath}" />
         <resolvepath propertyName="wp.tests_importer_plugin.resolved" file="${wp.tests_abspath.resolved}/tests/phpunit/data/plugins/wordpress-importer" />
+        <resolvepath propertyName="tests_dir.resolved" file="${tests_dir}" />
+
         <if>
             <not>
                 <available file="${wp.content.resolved}" />
@@ -117,19 +120,17 @@
 
     <target name="wp-tests-config-prepare" depends="wp-tests-download">
         <if>
-            <istrue value="${wp.tests.multisite}" />
+            <istrue value="${wp.tests_multisite}" />
             <then>
                 <property name="wp.tests.enable_multisite" value="true" />
-                <echo msg="OK! wp.tests.multisite: ${wp.tests_multisite}" />
             </then>
             <else>
                 <property name="wp.tests.enable_multisite" value="(bool) getenv( 'WP_MULTISITE' )" />
-                <echo msg="OK! wp.tests.multisite: ${env.WP_MULTISITE}" />
             </else>
         </if>
 
-        <copy file="${wp.tests_abspath.resolved}/wp-tests-config-sample.php"
-              tofile="${wp.tests_abspath.resolved}/wp-tests-config.php"
+        <copy file="${tests_dir.resolved}/wp-tests-config-sample.php"
+              tofile="${tests_dir.resolved}/wp-tests-config.php"
               overwrite="true">
             <filterchain>
                 <replaceregexp>
@@ -137,12 +138,18 @@
                     <regexp pattern="yourusernamehere" replace="${mysql.user}" ignoreCase="true" />
                     <regexp pattern="yourpasswordhere" replace="${mysql.pass}" ignoreCase="true" />
                     <regexp pattern="localhost" replace="${mysql.host}" ignoreCase="true" />
-                    <regexp pattern="dirname\( __FILE__ \) \. \'\/src\/\'" replace="getenv( 'WP_CORE_DIR' ) ? getenv( 'WP_CORE_DIR' ) . '/' : '${wp.abspath.resolved}'" ignoreCase="true" />
-                    <regexp pattern="\/\/ define\( \'WP_TESTS_MULTISITE\'\, true \)\;" replace="define( 'WP_TESTS_MULTISITE', ${wp.tests.enable_multisite} );" ignoreCase="true" />
+                    <regexp pattern="\/tmp\/wordpress\/content\/" replace="${wp.content.resolved}" ignoreCase="true" />
+                    <regexp pattern="\/tmp\/wordpress\/" replace="${wp.abspath.resolved}" ignoreCase="true" />
+                    <regexp pattern="define\(\'WP_TESTS_MULTISITE\'\, false\)\;" replace="define('WP_TESTS_MULTISITE', ${wp.tests.enable_multisite} );" ignoreCase="true" />
                 </replaceregexp>
             </filterchain>
         </copy>
-        <echo msg="OK! Updated WP tests config: ${wp.tests_abspath.resolved}/wp-tests-config.php" />
+
+        <delete file="${wp.tests_abspath.resolved}/wp-tests-config.php" />
+        <symlink target="${tests_dir.resolved}/wp-tests-config.php" link="${wp.tests_abspath.resolved}/wp-tests-config.php" />
+
+        <echo msg="OK! Multisite Enabled: ${wp.tests.enable_multisite}" />
+        <echo msg="OK! Updated wp-tests-config.php: ${wp.tests_abspath.resolved}/wp-tests-config.php" />
     </target>
 
     <target name="wp-tests-db-prepare" depends="tests-setup">
@@ -161,7 +168,7 @@
         <echo msg="OK! MySQL database created: ${mysql.db}" />
     </target>
 
-    <target name="init" depends="load-properties" />
+    <target name="init" depends="load-props" />
 
     <target name="lint-php">
         <foreach param="filename" absparam="absfilename" target="lint-php-file">
@@ -177,18 +184,18 @@
                  cachefile="${phplint.cachefile}" />
     </target>
 
-    <target name="load-properties">
+    <target name="load-props">
         <!-- Override default properties if custom build.properties exists -->
-	    <available file="${project.basedir}/build.properties"
-			       property="project.properties.file"
-	               value="${project.basedir}/build.properties" />
-	    <if>
-		    <isset property="project.properties.file" />
-		    <then>
-			    <property file="${project.basedir}/build.properties" override="true" />
-			    <echo msg="Build properties loaded!" />
-		    </then>
-	    </if>
+        <available file="${project.basedir}/build.properties"
+                   property="project.properties.file"
+                   value="${project.basedir}/build.properties" />
+        <if>
+            <isset property="project.properties.file" />
+            <then>
+                <property file="${project.basedir}/build.properties" override="true" />
+                <echo msg="Build properties loaded!" />
+            </then>
+        </if>
     </target>
 
     <target name="selenium" depends="selenium-prepare">
@@ -229,7 +236,7 @@
     </target>
 
     <fileset id="mu-plugins.dir" dir="${project.basedir}">
-        <include name="public/content/mu-plugins/*.php" />
+        <include name="${wp.content}/mu-plugins/*.php" />
     </fileset>
 
     <fileset id="tests.dir" dir="${project.basedir}">
@@ -239,7 +246,7 @@
     </fileset>
 
     <fileset id="phing.dependencies" dir="${project.basedir}">
-        <include name="public/content/plugins/*/build.xml" />
-        <include name="public/content/themes/*/build.xml" />
+        <include name="${wp.content}/plugins/*/build.xml" />
+        <include name="${wp.content}/themes/*/build.xml" />
     </fileset>
 </project>
