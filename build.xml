@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- http://www.phing.info/docs/stable/hlhtml/index.html -->
+<project name="WP Skeleton Site" default="build" basedir=".">
+
+    <property name="wp.abspath" value="./public/wp" />
+    <property name="wp.content" value="./public/content" />
+    <property name="wp.tests_repo" value="http://develop.svn.wordpress.org/trunk" />
+    <property name="wp.tests_multisite" value="false" />
+    <property name="wp.tests_abspath" value="/tmp/wordpress-tests" />
+    <property name="wp.tests_override_config_file" value="true" />
+
+    <property name="mysql.exec" value="mysql" />
+    <property name="mysql.host" value="localhost" />
+    <property name="mysql.user" value="root" />
+    <property name="mysql.pass" value="" />
+    <property name="mysql.db" value="wordpress_tests" />
+
+    <property name="composer.exec" value="composer" />
+    <property name="phpunit.exec" value="vendor/bin/phpunit" />
+    <property name="behat.exec" value="vendor/bin/behat" />
+    <property name="svn.exec" value="svn" />
+    <property name="curl.exec" value="curl" />
+    <property name="java.exec" value="java" />
+    <property name="selenium.exec" value="${project.basedir}/selenium-server.jar" />
+
+    <property name="tests_dir" value="./tests" />
+    <property name="selenium.download_url" value="http://selenium.googlecode.com/files/selenium-server-standalone-2.38.0.jar" />
+    <property name="phplint.cachefile" value="${project.basedir}/.phplint.cache" />
+
+    <target name="build"
+            depends="inspect,tests"
+            description="Primary target used to invoke all the targets." />
+
+    <target name="inspect" description="LINT ALL THE THINGS!" depends="lint" />
+    <target name="tests" description="TEST ALL THE THINGS!" depends="phpunit,behat" />
+
+    <target name="prepare"
+            depends="init,wp-tests-db-prepare,wp-tests-config-prepare"
+            description="Prepare and configures the environment." />
+
+    <target name="lint"
+            depends="init,lint-php"
+            description="Check the mu-plugins directory for syntax errors." />
+
+    <target name="phpunit" depends="prepare" description="Run the PHPUnit test suite">
+        <exec executable="${phpunit.exec}"
+              passthru="true"
+              checkreturn="true" />
+    </target>
+
+    <target name="behat" depends="prepare" description="Run the Behat feature suite">
+        <exec executable="${behat.exec}"
+              passthru="true"
+              checkreturn="true" />
+    </target>
+
+    <target name="phing" description="Yo dawg, I herd you like phing, so I put an phing in your phing so you can phing while you phing ;D">
+        <foreach param="filename" absparam="absfilename" target="phing-a-dependency">
+            <fileset refid="phing.dependencies" />
+        </foreach>
+    </target>
+
+    <target name="tests-setup">
+        <exec command="basename ${project.basedir}" outputProperty="project.dirname" />
+        <resolvepath propertyName="wp.abspath.resolved" file="${wp.abspath}" />
+        <property name="wp.abspath.resolved" value="${wp.abspath.resolved}/" override="true" />
+        <resolvepath propertyName="wp.content.resolved" file="${wp.content}" />
+        <property name="wp.content.resolved" value="${wp.content.resolved}/" override="true" />
+        <resolvepath propertyName="wp.tests_abspath.resolved" file="${wp.tests_abspath}" />
+        <resolvepath propertyName="wp.tests_importer_plugin.resolved" file="${wp.tests_abspath.resolved}/tests/phpunit/data/plugins/wordpress-importer" />
+        <resolvepath propertyName="tests_dir.resolved" file="${tests_dir}" />
+
+        <if>
+            <not>
+                <available file="${wp.content.resolved}" />
+            </not>
+            <then>
+                <fail message="wp.content.resolved property error: Invalid directory: ${wp.content.resolved}. Please make sure this directory exists." />
+            </then>
+        </if>
+
+        <echo msg="OK! project.dirname: ${project.dirname}" />
+        <echo msg="OK! wp.abspath: ${wp.abspath.resolved}" />
+        <echo msg="OK! wp.content: ${wp.content.resolved}" />
+        <echo msg="OK! wp.tests_abspath: ${wp.tests_abspath.resolved}" />
+    </target>
+
+    <target name="wp-tests-download" depends="tests-setup">
+        <if>
+            <not>
+                <available file="${wp.tests_abspath.resolved}" />
+            </not>
+            <then>
+                <mkdir dir="${wp.tests_abspath.resolved}" />
+                <echo msg="Downloading the WordPress tests framework and extracting it into ${wp.tests_abspath.resolved}" />
+                <exec command="${svn.exec} co --quiet --ignore-externals ${wp.tests_repo} ${wp.tests_abspath.resolved}"
+                      passthru="true"
+                      checkreturn="true" />
+            </then>
+            <else>
+                <echo msg="Skipping WordPress tests framework download. Using existing install tests directory in ${wp.tests_abspath.resolved}" />
+            </else>
+        </if>
+        <if>
+            <not>
+                <available file="${wp.tests_importer_plugin.resolved}" />
+            </not>
+            <then>
+                <mkdir dir="${wp.tests_importer_plugin.resolved}" />
+                <echo msg="Downloading WordPress Importer plugin into test framework" />
+                <exec command="${svn.exec} checkout --non-interactive --trust-server-cert https://plugins.svn.wordpress.org/wordpress-importer/trunk ${wp.tests_importer_plugin.resolved}"
+                      checkreturn="true" />
+            </then>
+            <else>
+                <echo msg="Skipped WordPress Importer download. Already exists in directory." />
+            </else>
+        </if>
+    </target>
+
+    <target name="wp-tests-config-prepare" depends="wp-tests-download">
+        <if>
+            <istrue value="${wp.tests_multisite}" />
+            <then>
+                <property name="wp.tests.enable_multisite" value="true" />
+            </then>
+            <else>
+                <property name="wp.tests.enable_multisite" value="(bool) getenv( 'WP_MULTISITE' )" />
+            </else>
+        </if>
+
+        <copy file="${tests_dir.resolved}/wp-tests-config-sample.php"
+              tofile="${tests_dir.resolved}/wp-tests-config.php"
+              overwrite="${wp.tests_override_config_file}">
+            <filterchain>
+                <replaceregexp>
+                    <regexp pattern="youremptytestdbnamehere" replace="${mysql.db}" ignoreCase="true" />
+                    <regexp pattern="yourusernamehere" replace="${mysql.user}" ignoreCase="true" />
+                    <regexp pattern="yourpasswordhere" replace="${mysql.pass}" ignoreCase="true" />
+                    <regexp pattern="localhost" replace="${mysql.host}" ignoreCase="true" />
+                    <regexp pattern="\/tmp\/wordpress\/content\/" replace="${wp.content.resolved}" ignoreCase="true" />
+                    <regexp pattern="\/tmp\/wordpress\/" replace="${wp.abspath.resolved}" ignoreCase="true" />
+                    <regexp pattern="define\(\'WP_TESTS_MULTISITE\'\, false\)\;" replace="define('WP_TESTS_MULTISITE', ${wp.tests.enable_multisite} );" ignoreCase="true" />
+                </replaceregexp>
+            </filterchain>
+        </copy>
+
+        <delete file="${wp.tests_abspath.resolved}/wp-tests-config.php" />
+        <symlink target="${tests_dir.resolved}/wp-tests-config.php" link="${wp.tests_abspath.resolved}/wp-tests-config.php" />
+
+        <echo msg="OK! Multisite Enabled: ${wp.tests.enable_multisite}" />
+        <echo msg="OK! Updated wp-tests-config.php: ${wp.tests_abspath.resolved}/wp-tests-config.php" />
+    </target>
+
+    <target name="wp-tests-db-prepare" depends="tests-setup">
+        <exec executable="${mysql.exec}" passthru="true" checkreturn="true" escape="false">
+            <arg value="--user=${mysql.user}" />
+            <arg value="--password=${mysql.pass}" />
+            <arg value="--execute=DROP DATABASE IF EXISTS ${mysql.db};" />
+        </exec>
+
+        <exec executable="${mysql.exec}" passthru="true" checkreturn="true" escape="false">
+            <arg value="--user=${mysql.user}" />
+            <arg value="--password=${mysql.pass}" />
+            <arg value="--execute=CREATE DATABASE ${mysql.db};" />
+        </exec>
+
+        <echo msg="OK! MySQL database created: ${mysql.db}" />
+    </target>
+
+    <target name="init" depends="load-props" />
+
+    <target name="lint-php">
+        <foreach param="filename" absparam="absfilename" target="lint-php-file">
+            <fileset refid="mu-plugins.dir" />
+            <fileset refid="tests.dir" />
+        </foreach>
+    </target>
+
+    <target name="lint-php-file">
+        <phplint file="${absfilename}"
+                 haltonfailure="true"
+                 deprecatedAsError="true"
+                 cachefile="${phplint.cachefile}" />
+    </target>
+
+    <target name="load-props">
+        <!-- Override default properties if custom build.properties exists -->
+        <available file="${project.basedir}/build.properties"
+                   property="project.properties.file"
+                   value="${project.basedir}/build.properties" />
+        <if>
+            <isset property="project.properties.file" />
+            <then>
+                <property file="${project.basedir}/build.properties" override="true" />
+                <echo msg="Build properties loaded!" />
+            </then>
+        </if>
+    </target>
+
+    <target name="selenium" depends="selenium-prepare">
+        <if>
+            <available file="${selenium.exec}" />
+            <then>
+                <exec executable="${java.exec}" passthru="true" checkreturn="true">
+                    <arg line="-jar ${project.basedir}/selenium-server.jar" />
+                </exec>
+            </then>
+        </if>
+    </target>
+
+    <target name="selenium-prepare" depends="init">
+        <if>
+            <not><available file="${selenium.exec}" /></not>
+            <then>
+                <exec executable="${curl.exec}" passthru="true" checkreturn="true">
+                    <arg line="${selenium.download_url}" />
+                    <arg line="-o ${project.basedir}/selenium-server.jar" />
+                </exec>
+            </then>
+        </if>
+    </target>
+
+    <target name="selenium-stop">
+        <exec executable="${curl.exec}" checkreturn="true">
+            <arg line="http://localhost:4444/selenium-server/driver/?cmd=shutDownSeleniumServer" />
+        </exec>
+    </target>
+
+    <target name="phing-a-dependency">
+        <exec command="dirname ${absfilename}" outputProperty="depdir" />
+        <echo msg="Composer install: ${depdir}" />
+        <exec command="${composer.exec} install -d ${depdir}" />
+        <echo msg="Phing: ${depdir}" />
+        <phing phingfile="${absfilename}" inheritAll="false" dir="${depdir}" />
+    </target>
+
+    <fileset id="mu-plugins.dir" dir="${project.basedir}">
+        <include name="${wp.content}/mu-plugins/*.php" />
+    </fileset>
+
+    <fileset id="tests.dir" dir="${project.basedir}">
+        <include name="tests/**.php" />
+        <include name="tests/mu-plugins/**.php" />
+        <include name="features/bootstrap/**.php" />
+    </fileset>
+
+    <fileset id="phing.dependencies" dir="${project.basedir}">
+        <include name="${wp.content}/plugins/*/build.xml" />
+        <include name="${wp.content}/themes/*/build.xml" />
+    </fileset>
+</project>

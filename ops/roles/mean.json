@@ -1,0 +1,17 @@
+{
+	"name": "mean",
+	"chef_type": "role",
+	"json_class": "Chef::Role",
+	"description": "",
+	"default_attributes": {
+	},
+	"override_attributes": {
+	},
+	"env_run_lists": {
+	},
+	"run_list": [
+		"nodejs",
+		"npm",
+		"mongodb"
+	]
+}

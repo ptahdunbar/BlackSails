@@ -1,11 +1,27 @@
-public/content/mu-plugins/wp-skeleton-plugin
-public/content/plugins/wp-skeleton-plugin
-public/content/themes/wp-skeleton-theme
-public/content/themes/_s
-public/content/upgrade
+# System files & Artifacts
+.DS_Store
+.phplint.cache
+build
+build.properties
+selenium-server.jar
+node_modules
+npm-debug.log
+
+# IDE
+.idea
+nbproject
+
+# Vagrant
+.vagrant
+varrgrant.json
+
+# Composer
+vendor
+
+# Project files
+tests/wp-tests-config.php
 public/wp
 public/local-config.php
-logs
-vendor
-.DS_Store
-.idea
+public/content/themes/wp-skeleton-theme
+public/content/plugins/wp-skeleton-plugin
+public/content/mu-plugins/wp-skeleton-plugin
