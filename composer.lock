@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "357d75b6f08d20789f16d79a1d385de4",
+    "hash": "253913cdd8eaf77b16de3e5ea8fbb56b",
     "packages": [
         {
             "name": "composer/installers",
@@ -131,12 +131,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ptahdunbar/wp-skeleton-plugin.git",
-                "reference": "155fd001bdf8059e4a8aa74942ee2514d92a99d1"
+                "reference": "94f9fcdd91e12195ee6f502cfef22cf040c230c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ptahdunbar/wp-skeleton-plugin/zipball/155fd001bdf8059e4a8aa74942ee2514d92a99d1",
-                "reference": "155fd001bdf8059e4a8aa74942ee2514d92a99d1",
+                "url": "https://api.github.com/repos/ptahdunbar/wp-skeleton-plugin/zipball/94f9fcdd91e12195ee6f502cfef22cf040c230c5",
+                "reference": "94f9fcdd91e12195ee6f502cfef22cf040c230c5",
                 "shasum": ""
             },
             "require": {
@@ -154,6 +154,7 @@
                 "phpunit/phpunit": "3.7.*",
                 "phpunit/phpunit-selenium": "*",
                 "satooshi/php-coveralls": "dev-master",
+                "whatthejeff/fab-phpunit-resultprinter": "~1.1",
                 "whatthejeff/nyancat-phpunit-resultprinter": "~1.1"
             },
             "type": "wordpress-plugin",
@@ -177,7 +178,7 @@
                 "themes",
                 "wordpress"
             ],
-            "time": "2013-12-19 02:39:50"
+            "time": "2013-12-27 11:22:31"
         },
         {
             "name": "ptahdunbar/wp-skeleton-theme",
@@ -185,12 +186,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ptahdunbar/wp-skeleton-theme.git",
-                "reference": "de14c97878d88748e63b390d3f017e674634f728"
+                "reference": "14f91ccaae7a16a28b7948f131c669d2d1d30f6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ptahdunbar/wp-skeleton-theme/zipball/de14c97878d88748e63b390d3f017e674634f728",
-                "reference": "de14c97878d88748e63b390d3f017e674634f728",
+                "url": "https://api.github.com/repos/ptahdunbar/wp-skeleton-theme/zipball/14f91ccaae7a16a28b7948f131c669d2d1d30f6e",
+                "reference": "14f91ccaae7a16a28b7948f131c669d2d1d30f6e",
                 "shasum": ""
             },
             "require": {
@@ -207,6 +208,8 @@
                 "phpunit/dbunit": "1.2.*@dev",
                 "phpunit/phpunit": "3.7.*",
                 "phpunit/phpunit-selenium": "*",
+                "satooshi/php-coveralls": "dev-master",
+                "whatthejeff/fab-phpunit-resultprinter": "~1.1",
                 "whatthejeff/nyancat-phpunit-resultprinter": "~1.1"
             },
             "type": "wordpress-theme",
@@ -230,7 +233,7 @@
                 "themes",
                 "wordpress"
             ],
-            "time": "2013-12-18 12:05:41"
+            "time": "2013-12-27 12:03:38"
         },
         {
             "name": "rhumsaa/array_column",
@@ -883,6 +886,64 @@
                 "webdriver"
             ],
             "time": "2013-04-13 12:56:28"
+        },
+        {
+            "name": "behat/mink-zombie-driver",
+            "version": "v1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Behat/MinkZombieDriver.git",
+                "reference": "c4ec4b803b73dba4d1a03a47e53ca205ba841351"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Behat/MinkZombieDriver/zipball/c4ec4b803b73dba4d1a03a47e53ca205ba841351",
+                "reference": "c4ec4b803b73dba4d1a03a47e53ca205ba841351",
+                "shasum": ""
+            },
+            "require": {
+                "behat/mink": "~1.4.3",
+                "php": ">=5.3.1",
+                "symfony/process": "~2.1"
+            },
+            "type": "mink-driver",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Behat\\Mink\\Driver": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Konstantin Kudryashov",
+                    "email": "ever.zet@gmail.com",
+                    "homepage": "http://everzet.com"
+                },
+                {
+                    "name": "Pascal Cremer",
+                    "email": "b00gizm@gmail.com",
+                    "homepage": "http://github.com/b00gizm"
+                }
+            ],
+            "description": "Zombie.js driver for Mink framework",
+            "homepage": "http://mink.behat.org/",
+            "keywords": [
+                "ajax",
+                "browser",
+                "headless",
+                "javascript",
+                "testing",
+                "zombie"
+            ],
+            "time": "2013-04-13 12:54:30"
         },
         {
             "name": "fabpot/goutte",
