@@ -9,12 +9,16 @@
  * @package WordPress
  */
 
+/** Absolute path to the WordPress directory. */
+if ( ! defined('ABSPATH') ) {
+    define('ABSPATH', dirname(__FILE__) . '/');
+}
+
+/** Include composer autoload */
+include_once ABSPATH . '../../vendor/autoload.php';
+
 /** Load database info and environment specific settings. */
 $local_config = dirname( __FILE__ ) . '/local-config.php';
-
-/** Absolute path to the WordPress directory. */
-if ( ! defined('ABSPATH') )
-    define('ABSPATH', dirname(__FILE__) . '/');
 
 if ( file_exists($local_config) ) {
     require_once $local_config;
@@ -88,7 +92,7 @@ if ( ! defined('WP_CONTENT_URL') && isset($_SERVER['HTTP_HOST']) ) {
     define( 'WP_CONTENT_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/content' );
 }
 
-/** Database Charset to use in creating database tables. */
+/** Database charset to use in creating database tables. */
 if ( ! defined('DB_CHARSET') ) {
     define('DB_CHARSET', 'utf8');
 }
@@ -105,20 +109,6 @@ if ( ! isset($table_prefix) ) {
 if ( ! defined('WPLANG') ) {
     define('WPLANG', '');
 }
-
-if ( ! defined('WP_MEMORY_LIMIT') ) {
-    define('WP_MEMORY_LIMIT', '64M');
-}
-
-//if ( defined('WP_DEBUG') && ! WP_DEBUG )
-//    define('WP_DEBUG_DISPLAY', false);
-
-/** The default base theme. */
-if ( ! defined('WP_DEFAULT_THEME') ) {
-    define('WP_DEFAULT_THEME', 'wp-skeleton-theme');
-}
-
-
 
 /**#@-*/
 

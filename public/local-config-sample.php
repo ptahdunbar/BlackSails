@@ -63,3 +63,6 @@ define('SAVEQUERIES', false);
 
 /** Profile Request/Response time. */
 define('REQUEST_MICROTIME', microtime(true));
+
+/** The default base theme. */
+define('WP_DEFAULT_THEME', 'wp-skeleton-theme');
