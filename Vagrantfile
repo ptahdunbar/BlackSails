@@ -4,14 +4,15 @@
 require 'rubygems'
 require 'json'
 
-boxfile = "Varrgrant.json"
-sampleboxfile = "Varrgrant-sample.json"
-
 # Can't run vagrant without Vagrantfile.json
-unless File.exists?(boxfile) then
-    FileUtils.copy_file(sampleboxfile, boxfile)
-    puts "[success] Copied #{sampleboxfile} to #{boxfile}."
-    puts "[info] Configure your vagrant environment by adding Varrgrant definitions to #{boxfile}."
+if File.exists?("Varrgrant.local.json")
+    boxfile = "Varrgrant.local.json"
+elsif File.exists?("Varrgrant.json")
+    boxfile = "Varrgrant.json"
+elsif ! boxes File.exists?("Varrgrant-sample.json")
+    FileUtils.copy_file("Varrgrant-sample.json", "Varrgrant.json")
+    puts "[success] Copied Varrgrant-sample.json to Varrgrant.json."
+    puts "[info] Configure your vagrant environment by adding Varrgrant definitions to Varrgrant.json."
     exit
 end
 
@@ -22,26 +23,13 @@ puts "[info] Loading box configuration from #{boxfile}"
 # Vagrantfile API version.
 VAGRANTFILE_API_VERSION = "2"
 
-# provider: vmware_fusion, aws, rackspace, virtualbox
-case "#{ARGV[1]}"; when '--provider=aws'; provider = 'aws'; when '--provider=vmware_fusion'; provider = 'vmware_fusion'; else; provider = 'virtualbox'; end if ARGV[1]
-
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # SETUP global configuration for boxes
     box_config_global = proc do |box_config|
 
         box_config.vm.box = "precise"
-
-        case provider
-            when 'vmware_fusion'
-                box_config.vm.box_url = "http://files.vagrantup.com/precise64_vmware.box"
-            when 'aws'
-                box_config.vm.box_url = "https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box"
-            when 'rackspace'
-                box_config.vm.box_url = "https://github.com/mitchellh/vagrant-rackspace/raw/master/dummy.box"
-            else
-                box_config.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-vagrant-disk1.box"
-        end
+        box_config.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-vagrant-disk1.box"
 
         if defined? VagrantPlugins::Cachier
             # plugin: vagrant-cachier
@@ -52,19 +40,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         if defined? VagrantPlugins::Vbguest
             # plugin: vagrant-vbguest
             puts "[info] Enabled: vagrant-vbguest"
-
-            # we will try to autodetect this path.
-            # However, if we cannot or you have a special one you may pass it like:
-            # config.vbguest.iso_path = "#{ENV['HOME']}/Downloads/VBoxGuestAdditions.iso"
-            # or
-            # config.vbguest.iso_path = "http://company.server/VirtualBox/%{version}/VBoxGuestAdditions.iso"
-
-            # set auto_update to false, if do NOT want to check the correct additions
-            # version when booting this machine
-            box_config.vbguest.auto_update = false
-
-            # do NOT download the iso file from a webserver
-            box_config.vbguest.no_remote = false
         end
     end
 
@@ -117,11 +92,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                 end
             end
 
-            if box["disable_default_synced_folder"]
-                # Uncomment the following line to turn off the default synced folder:
-                config.vm.synced_folder ".", "/vagrant", id: "vagrant-root", disabled: true
-            end
-
             if box["config"]
                 config.ssh.username = box["config"]["ssh_username"] if box["config"]["ssh_username"]
                 config.ssh.host = box["config"]["ssh_host"] if box["config"]["ssh_host"]
@@ -130,33 +100,36 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                 config.ssh.forward_agent = box["config"]["forward_agent"] if box["config"]["forward_agent"]
                 config.ssh.forward_x11 = box["config"]["forward_x11"] if box["config"]["forward_x11"]
                 config.ssh.shell = box["config"]["shell"] if box["config"]["shell"]
-            end
 
-            config.vm.provider :virtualbox do |node|
-                if box["customize"]
-                    node.gui = true if box["customize"]["gui"]
-                    node.customize ["modifyvm", :id, "--cpus", box["customize"]["cpus"] ] if box["customize"]["cpus"]
-                    node.customize ["modifyvm", :id, "--memory", box["customize"]["memory"] ] if box["customize"]["memory"]
+                if box["config"]["disable_default_synced_folder"]
+                    config.vm.synced_folder ".", "/vagrant", id: "vagrant-root", disabled: true
                 end
             end
 
-            config.vm.provider :vmware_fusion do |node|
+            config.vm.provider :virtualbox do |virtualbox, override|
                 if box["customize"]
-                    node.gui = true if box["customize"]["gui"]
-                    node.vmx["numvcpus"] = box["customize"]["cpus"] if box["customize"]["cpus"]
-                    node.vmx["memsize"] = box["customize"]["cpus"] if box["customize"]["memory"]
+                    virtualbox.gui = true if box["customize"]["gui"]
+                    virtualbox.customize ["modifyvm", :id, "--cpus", box["customize"]["cpus"] ] if box["customize"]["cpus"]
+                    virtualbox.customize ["modifyvm", :id, "--memory", box["customize"]["memory"] ] if box["customize"]["memory"]
+                end
+            end
+
+            config.vm.provider :vmware_fusion do |vmware, override|
+                if box["customize"]
+                    override.vm.box_url = "http://files.vagrantup.com/precise64_vmware.box"
+                    vmware.gui = true if box["customize"]["gui"]
+                    vmware.vmx["numvcpus"] = box["customize"]["cpus"] if box["customize"]["cpus"]
+                    vmware.vmx["memsize"] = box["customize"]["cpus"] if box["customize"]["memory"]
                 end
             end
 
             config.vm.provider :aws do |aws, override|
                 if box["ami"]
-                    # I'd like to use environment variables for these,
-                    # but cant seem to get it working for the life of me. grrr!
-                    aws.access_key_id = box["ami"]["access_key_id"]
-                    aws.secret_access_key = box["ami"]["secret_access_key"]
-                    aws.keypair_name = box["ami"]["keypair_name"]
+                    override.vm.box_url = "https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box"
                     override.ssh.private_key_path = box["ami"]["private_key_path"]
                     override.ssh.username = box["ami"]["username"]
+
+                    aws.keypair_name = box["ami"]["keypair_name"]
 
                     aws.ami = box["ami"]["id"] if box["ami"]["id"]
                     aws.availability_zone = box["ami"]["availability_zone"] if box["ami"]["availability_zone"]
@@ -175,14 +148,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
             config.vm.provider :rackspace do |rs, override|
                 if box["rackspace"]
-                    rs.username = box["rackspace"]["username"]
-                    rs.api_key = box["rackspace"]["api_key"]
-
-                    rs.flavor = box["rackspace"]["flavor"] ? "#{box["rackspace"]["flavor"]}MB" : /512MB/
-                    rs.image = box["rackspace"]["image"] if box["rackspace"]["image"]
-
+                    override.vm.box_url = "https://github.com/mitchellh/vagrant-rackspace/raw/master/dummy.box"
                     override.ssh.username = box["rackspace"]["ssh_username"] if box["rackspace"]["ssh_username"]
                     override.ssh.private_key_path = box["rackspace"]["private_key_path"] if box["rackspace"]["private_key_path"]
+
+                    rs.username = box["rackspace"]["username"]
+                    rs.api_key = box["rackspace"]["api_key"]
+                    rs.flavor = box["rackspace"]["flavor"] ? "#{box["rackspace"]["flavor"]}MB" : /512MB/
+                    rs.image = box["rackspace"]["image"] if box["rackspace"]["image"]
                     rs.public_key_path = box["rackspace"]["public_key_path"] if box["rackspace"]["public_key_path"]
 
                     rs.server_name = hostname
@@ -196,6 +169,23 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                             rs.network = network
                         end
                     end
+                end
+            end
+
+            config.vm.provider :digital_ocean do |digital_ocean, override|
+                if box["digital_ocean"]
+                    override.vm.box_url = "https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box"
+                    override.ssh.private_key_path = box["digital_ocean"]["private_key_path"]
+
+                    digital_ocean.client_id = box["digital_ocean"]["client_id"]
+                    digital_ocean.api_key = box["digital_ocean"]["api_key"]
+
+                    digital_ocean.ssh_key_name = box["digital_ocean"]["ssh_key_name"] if box["digital_ocean"]["ssh_key_name"]
+                    digital_ocean.image = box["digital_ocean"]["image"] if box["digital_ocean"]["image"]
+                    digital_ocean.region = box["digital_ocean"]["region"] if box["digital_ocean"]["region"]
+                    digital_ocean.size = box["digital_ocean"]["size"] if box["digital_ocean"]["size"]
+                    digital_ocean.private_networking = box["digital_ocean"]["private_networking"] if box["digital_ocean"]["private_networking"]
+                    digital_ocean.setup = box["digital_ocean"]["setup"] if box["digital_ocean"]["setup"]
                 end
             end
 
