@@ -168,10 +168,10 @@
       "locked_version": "1.1.4"
     },
     "runit": {
-      "locked_version": "1.4.6"
+      "locked_version": "1.4.0"
     },
     "yum": {
-      "locked_version": "2.4.4"
+      "locked_version": "2.4.2"
     },
     "yum-epel": {
       "locked_version": "0.2.0"
