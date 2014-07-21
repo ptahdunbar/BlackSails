@@ -2,45 +2,62 @@
 <!-- http://www.phing.info/docs/stable/hlhtml/index.html -->
 <project name="WP Skeleton Site" default="build" basedir=".">
 
-    <property name="wp.abspath" value="./public/wp" />
-    <property name="wp.content" value="./public/content" />
+    <property name="wp.abspath" value="public/wp" />
+    <property name="wp.content" value="public/content" />
     <property name="wp.tests_repo" value="http://develop.svn.wordpress.org/trunk" />
     <property name="wp.tests_multisite" value="false" />
     <property name="wp.tests_abspath" value="/tmp/wordpress-tests" />
     <property name="wp.tests_override_config_file" value="true" />
+    <property name="wp.prefix" value="wp_" />
 
     <property name="mysql.exec" value="mysql" />
     <property name="mysql.host" value="localhost" />
     <property name="mysql.user" value="root" />
     <property name="mysql.pass" value="" />
-    <property name="mysql.db" value="wordpress_tests" />
+    <property name="mysql.db" value="wp9" />
+    <property name="mysql.test_db" value="wordpress_tests" />
 
+    <property name="composer.args" value="" />
     <property name="composer.exec" value="composer" />
     <property name="phpunit.exec" value="vendor/bin/phpunit" />
     <property name="behat.exec" value="vendor/bin/behat" />
+    <property name="wpcli.exec" value="vendor/bin/wp" />
     <property name="svn.exec" value="svn" />
     <property name="git.exec" value="git" />
     <property name="curl.exec" value="curl" />
     <property name="java.exec" value="java" />
     <property name="selenium.exec" value="${project.basedir}/selenium-server.jar" />
 
-    <property name="tests_dir" value="./tests" />
+    <property name="tests_dir" value="tests" />
+    <property name="config_dir" value="config" />
+    <property name="phing.override_build_props_file" value="false" />
     <property name="selenium.download_url" value="http://selenium.googlecode.com/files/selenium-server-standalone-2.38.0.jar" />
     <property name="phplint.cachefile" value="${project.basedir}/.phplint.cache" />
 
     <property name="init-plugin.repo" value="git://github.com/ptahdunbar/wp-skeleton-plugin.git" />
     <property name="init-theme.repo" value="git://github.com/ptahdunbar/wp-skeleton-theme.git" />
     <property name="temp_path" value="/tmp/" />
+    <property name="ops_path" value="${project.basedir}/ops" />
+    <property name="php.binary" value="php" />
 
     <target name="build"
-            depends="inspect,tests"
+            depends="inspect"
             description="Primary target used to invoke all the targets." />
 
     <target name="inspect" description="LINT ALL THE THINGS!" depends="lint" />
     <target name="tests" description="TEST ALL THE THINGS!" depends="phpunit,behat" />
 
+    <target name="reset" depends="init">
+        <exec command="${wpcli.exec} db reset --yes"
+              passthru="true"
+              checkreturn="true" />
+        <exec command="${wpcli.exec} core install"
+              passthru="true"
+              checkreturn="true" />
+    </target>
+
     <target name="prepare"
-            depends="init,wp-tests-db-prepare,wp-tests-config-prepare"
+            depends="wp-tests-db-prepare,wp-tests-config-prepare"
             description="Prepare and configures the environment." />
 
     <target name="lint"
@@ -59,22 +76,25 @@
               checkreturn="true" />
     </target>
 
-    <target name="phing" description="Yo dawg, I herd you like phing, so I put an phing in your phing so you can phing while you phing ;D">
+    <target name="phing" depends="composer-install-dependencies,phing-prepare" description="Yo dawg, I herd you like phing, so I put an phing in your phing so you can phing while you phing ;D">
         <foreach param="filename" absparam="absfilename" target="phing-a-dependency">
             <fileset refid="phing.dependencies" />
         </foreach>
     </target>
 
-    <target name="tests-setup">
-        <exec command="basename ${project.basedir}" outputProperty="project.dirname" />
-        <resolvepath propertyName="wp.abspath.resolved" file="${wp.abspath}" />
-        <property name="wp.abspath.resolved" value="${wp.abspath.resolved}/" override="true" />
-        <resolvepath propertyName="wp.content.resolved" file="${wp.content}" />
-        <property name="wp.content.resolved" value="${wp.content.resolved}/" override="true" />
-        <resolvepath propertyName="wp.tests_abspath.resolved" file="${wp.tests_abspath}" />
-        <resolvepath propertyName="wp.tests_importer_plugin.resolved" file="${wp.tests_abspath.resolved}/tests/phpunit/data/plugins/wordpress-importer" />
-        <resolvepath propertyName="tests_dir.resolved" file="${tests_dir}" />
+    <target name="phing-prepare" depends="init">
+        <foreach param="filename" absparam="absfilename" target="phing-prepare-a-dependency">
+            <fileset refid="phing.dependencies" />
+        </foreach>
+    </target>
 
+    <target name="composer-install-dependencies" description="Run composer on dependencies">
+        <foreach param="filename" absparam="absfilename" target="compose-a-dependency">
+            <fileset refid="composer.dependencies" />
+        </foreach>
+    </target>
+
+    <target name="wp-content-check">
         <if>
             <not>
                 <available file="${wp.content.resolved}" />
@@ -83,14 +103,9 @@
                 <fail message="wp.content.resolved property error: Invalid directory: ${wp.content.resolved}. Please make sure this directory exists." />
             </then>
         </if>
-
-        <echo msg="OK! project.dirname: ${project.dirname}" />
-        <echo msg="OK! wp.abspath: ${wp.abspath.resolved}" />
-        <echo msg="OK! wp.content: ${wp.content.resolved}" />
-        <echo msg="OK! wp.tests_abspath: ${wp.tests_abspath.resolved}" />
     </target>
 
-    <target name="wp-tests-download" depends="tests-setup">
+    <target name="wp-tests-download" depends="init">
         <if>
             <not>
                 <available file="${wp.tests_abspath.resolved}" />
@@ -134,45 +149,64 @@
         </if>
 
         <copy file="${tests_dir.resolved}/wp-tests-config-sample.php"
-              tofile="${tests_dir.resolved}/wp-tests-config.php"
+              tofile="${config_dir.resolved}/test-config.php"
               overwrite="${wp.tests_override_config_file}">
             <filterchain>
                 <replaceregexp>
-                    <regexp pattern="youremptytestdbnamehere" replace="${mysql.db}" ignoreCase="true" />
+                    <regexp pattern="youremptytestdbnamehere" replace="${mysql.test_db}" ignoreCase="true" />
                     <regexp pattern="yourusernamehere" replace="${mysql.user}" ignoreCase="true" />
                     <regexp pattern="yourpasswordhere" replace="${mysql.pass}" ignoreCase="true" />
                     <regexp pattern="localhost" replace="${mysql.host}" ignoreCase="true" />
                     <regexp pattern="\/tmp\/wordpress\/content\/" replace="${wp.content.resolved}" ignoreCase="true" />
                     <regexp pattern="\/tmp\/wordpress\/" replace="${wp.abspath.resolved}" ignoreCase="true" />
+                    <regexp pattern="\/tmp\/wordpress-tests\/" replace="${wp.tests_abspath.resolved}" ignoreCase="true" />
                     <regexp pattern="define\(\'WP_TESTS_MULTISITE\'\, false\)\;" replace="define('WP_TESTS_MULTISITE', ${wp.tests.enable_multisite} );" ignoreCase="true" />
+                    <regexp pattern="define\(\'WP_PHP_BINARY\'\, \'php\'\)\;" replace="define('WP_PHP_BINARY', '${php.binary}' );" ignoreCase="true" />
                 </replaceregexp>
             </filterchain>
         </copy>
 
-        <delete file="${wp.tests_abspath.resolved}/wp-tests-config.php" />
-        <symlink target="${tests_dir.resolved}/wp-tests-config.php" link="${wp.tests_abspath.resolved}/wp-tests-config.php" />
+        <delete file="${wp.tests_abspath.resolved}wp-tests-config.php" />
+        <symlink target="${config_dir.resolved}/test-config.php" link="${wp.tests_abspath.resolved}wp-tests-config.php" />
 
         <echo msg="OK! Multisite Enabled: ${wp.tests.enable_multisite}" />
-        <echo msg="OK! Updated wp-tests-config.php: ${wp.tests_abspath.resolved}/wp-tests-config.php" />
+        <echo msg="OK! Updated wp-tests-config.php: ${wp.tests_abspath.resolved}wp-tests-config.php" />
     </target>
 
-    <target name="wp-tests-db-prepare" depends="tests-setup">
+    <target name="wp-tests-db-prepare" depends="init">
         <exec executable="${mysql.exec}" passthru="true" checkreturn="true" escape="false">
             <arg value="--user=${mysql.user}" />
             <arg value="--password=${mysql.pass}" />
-            <arg value="--execute=DROP DATABASE IF EXISTS ${mysql.db};" />
+            <arg value="--execute=DROP DATABASE IF EXISTS ${mysql.test_db};" />
         </exec>
 
         <exec executable="${mysql.exec}" passthru="true" checkreturn="true" escape="false">
             <arg value="--user=${mysql.user}" />
             <arg value="--password=${mysql.pass}" />
-            <arg value="--execute=CREATE DATABASE ${mysql.db};" />
+            <arg value="--execute=CREATE DATABASE ${mysql.test_db};" />
         </exec>
 
-        <echo msg="OK! MySQL database created: ${mysql.db}" />
+        <echo msg="OK! MySQL database created: ${mysql.test_db}" />
     </target>
 
-    <target name="init" depends="load-props" />
+    <target name="init" depends="load-props">
+        <exec command="basename ${project.basedir}" outputProperty="project.dirname" />
+        <resolvepath propertyName="wp.abspath.resolved" file="${wp.abspath}" />
+        <property name="wp.abspath.resolved" value="${wp.abspath.resolved}/" override="true" />
+        <resolvepath propertyName="wp.content.resolved" file="${wp.content}" />
+        <property name="wp.content.resolved" value="${wp.content.resolved}/" override="true" />
+        <resolvepath propertyName="wp.tests_abspath.resolved" file="${wp.tests_abspath}" />
+        <property name="wp.tests_abspath.resolved" value="${wp.tests_abspath.resolved}/" override="true" />
+        <resolvepath propertyName="wp.tests_importer_plugin.resolved" file="${wp.tests_abspath.resolved}/tests/phpunit/data/plugins/wordpress-importer" />
+        <resolvepath propertyName="tests_dir.resolved" file="${tests_dir}" />
+        <resolvepath propertyName="config_dir.resolved" file="${config_dir}" />
+        <resolvepath propertyName="wpcli_exec.resolved" file="${project.basedir}/${wpcli.exec}" />
+
+        <echo msg="OK! project.dirname: ${project.dirname}" />
+        <echo msg="OK! wp.abspath: ${wp.abspath.resolved}" />
+        <echo msg="OK! wp.content: ${wp.content.resolved}" />
+        <echo msg="OK! wp.tests_abspath: ${wp.tests_abspath.resolved}" />
+    </target>
 
     <target name="lint-php">
         <foreach param="filename" absparam="absfilename" target="lint-php-file">
@@ -232,14 +266,53 @@
     </target>
 
     <target name="phing-a-dependency">
-        <exec command="dirname ${absfilename}" outputProperty="depdir" />
-        <echo msg="Composer install: ${depdir}" />
-        <exec command="${composer.exec} install -d ${depdir}" />
+        <exec command="dirname '${absfilename}'" outputProperty="depdir" />
         <echo msg="Phing: ${depdir}" />
         <phing phingfile="${absfilename}" inheritAll="false" dir="${depdir}" />
     </target>
 
-    <target name="new-plugin" depends="tests-setup">
+    <target name="phing-prepare-a-dependency">
+        <exec command="dirname ${absfilename}" outputProperty="depdir" />
+        <echo msg="Phing: ${depdir}" />
+        <if>
+            <istrue value="${phing.override_build_props_file}" />
+            <then>
+                <delete file="${depdir}/build.properties" />
+            </then>
+        </if>
+        <if>
+            <not>
+                <available file="${depdir}/build.properties" />
+            </not>
+            <then>
+                <touch file="${depdir}/build.properties" />
+                <append destFile="${depdir}/build.properties"
+                        text="wp.abspath=${wp.abspath.resolved}${line.separator}wp.content=${wp.content.resolved}${line.separator}wp.tests_abspath=${wp.tests_abspath.resolved}${line.separator}mysql.user=${mysql.user}${line.separator}mysql.pass=${mysql.pass}" />
+            </then>
+        </if>
+    </target>
+
+    <target name="compose-a-dependency">
+        <exec command="dirname ${absfilename}" outputProperty="depdir" />
+        <echo msg="Composer install: ${depdir}" />
+        <exec command="${composer.exec} install -d ${depdir}${composer.args}" passthru="true" />
+    </target>
+
+    <target name="new-muplugin">
+        <property name="init-plugin.type" value="mu-plugins" />
+        <phingcall target="new-plugin" />
+    </target>
+
+    <target name="new-plugin" depends="init">
+        <if>
+            <not>
+                <isset property="init-plugin.type" />
+            </not>
+            <then>
+                <property name="init-plugin.type" value="plugins" />
+            </then>
+        </if>
+
         <resolvepath propertyName="temp_path.plugin.resolved" file="${temp_path}/wp-skeleton-plugin" />
 
         <propertyprompt propertyName="init-plugin.title" defaultValue="WP Skeleton Test" promptText="Enter the plugin title:" />
@@ -293,7 +366,7 @@
     </target>
 
     <target name="fail-if-plugin-exists">
-        <resolvepath propertyName="init-plugin.path.resolved" file="${wp.content.resolved}/plugins/${init-plugin.name}" />
+        <resolvepath propertyName="init-plugin.path.resolved" file="${wp.content.resolved}/${init-plugin.type}/${init-plugin.name}" />
         <if>
             <available file="${init-plugin.path.resolved}" />
             <then>
@@ -313,10 +386,10 @@
                 </exec>
             </then>
             <else>
-                <exec executable="${git.exec}" checkreturn="true" dir="${temp_path.plugin.resolved}">
+                <exec executable="${git.exec}" checkreturn="true" passthru="true" dir="${temp_path.plugin.resolved}">
                     <arg line="reset --hard" />
                 </exec>
-                <exec executable="${git.exec}" checkreturn="true" dir="${temp_path.plugin.resolved}">
+                <exec executable="${git.exec}" checkreturn="true" passthru="true" dir="${temp_path.plugin.resolved}">
                     <arg line="pull" />
                 </exec>
             </else>
@@ -386,11 +459,29 @@
                 </replaceregexp>
             </filterchain>
         </copy>
+
+        <delete dir="${init-plugin.path.resolved}/.git" />
     </target>
 
-    <target name="new-theme" depends="tests-setup" />
-    <target name="theme-scaffold" depends="fail-if-theme-exists" />
-    <target name="fail-if-theme-exists" />
+    <target name="clean" depends="init">
+        <delete file="${project.basedir}/build" />
+    </target>
+
+    <target name="pull" depends="init">
+        <property name="composer.args" value=" --no-dev" override="true" />
+        <exec command="${composer.exec} install${composer.args}" />
+        <phingcall target="composer-install-dependencies" />
+        <exec command="${git.exec} pull -q" />
+    </target>
+
+    <target name="vagrant-plugins">
+        <exec command="./install-vagrant-plugins.sh" passthru="true" />
+    </target>
+
+    <target name="composer-install">
+        <exec command="curl -sS https://getcomposer.org/installer | php" passthru="true" />
+        <exec command="sudo mv composer.phar /usr/local/bin/composer" passthru="true" />
+    </target>
 
     <fileset id="mu-plugins.dir" dir="${project.basedir}">
         <include name="${wp.content}/mu-plugins/*.php" />
@@ -403,7 +494,14 @@
     </fileset>
 
     <fileset id="phing.dependencies" dir="${project.basedir}">
+        <include name="${wp.content}/mu-plugins/*/build.xml" />
         <include name="${wp.content}/plugins/*/build.xml" />
         <include name="${wp.content}/themes/*/build.xml" />
+    </fileset>
+
+    <fileset id="composer.dependencies" dir="${project.basedir}">
+        <include name="${wp.content}/mu-plugins/*/composer.json" />
+        <include name="${wp.content}/plugins/*/composer.json" />
+        <include name="${wp.content}/themes/*/composer.json" />
     </fileset>
 </project>

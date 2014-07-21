@@ -1,2 +1,19 @@
+# WordPress in a subdirectory.
 path: public/wp
-require: ops/scripts/load-wpcli-commands.php
+
+# Load PHP file before running the command (may be used more than once)
+require: wp-cli/loader.php
+
+# Show all PHP errors
+debug: true
+
+# Create the WordPress tables in the database.
+#core install:
+#    url: http://wpss.dev/wp
+#    title: wpss.dev
+#    admin_email: admin@localhost.com
+#    admin_user: admin
+#    admin_password: password
+
+# Skip loading all or some plugins
+# skip-plugins: <list>

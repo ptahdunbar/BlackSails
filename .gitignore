@@ -7,7 +7,12 @@ selenium-server.jar
 node_modules
 npm-debug.log
 
+logs/*.log
 wp-cli.local.yml
+
+config/*.php
+!config/global-config.php
+!config/global-config.php
 
 # IDE
 .idea
