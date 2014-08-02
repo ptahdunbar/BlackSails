@@ -10,19 +10,23 @@
  */
 
 /**
- * Use this to constant WordPress to a specific environment.
+ * Use WP_ENV to load environment specific settings.
  *
- * Examples are: dev, stag, prod.
+ * Apache:
+ *  SetEnv WP_ENV "production"
  *
- * FYI: 'test' is used by the automated testing framework.
+ * Nginx:
+ *  fastcgi_param WP_ENV production;
+ *
+ * NOTE: 'test' is used by the automated testing framework.
  */
 if ( ! defined('WP_ENV') ) {
-    define('WP_ENV', 'dev');
+	define('WP_ENV', getenv('WP_ENV') ?: 'production');
 }
 
 /** Absolute path to the WordPress directory. */
 if ( ! defined('ABSPATH') ) {
-    define('ABSPATH', dirname(__FILE__) . '/');
+	define('ABSPATH', dirname(__FILE__) . '/');
 }
 
 /** @var string $__root_dir Path to config dir */
@@ -30,7 +34,7 @@ $__root_dir = realpath(dirname(__FILE__) . '/../');
 
 /** Include composer autoload */
 if ( file_exists($__root_dir . '/vendor/autoload.php') ) {
-    include_once $__root_dir . '/vendor/autoload.php';
+	include_once $__root_dir . '/vendor/autoload.php';
 }
 
 /** Include global settings **/
@@ -41,7 +45,7 @@ include_once $__root_dir . '/config/' . WP_ENV .'-config.php';
 
 /** Custom /logs path. */
 if ( WP_DEBUG ) {
-    ini_set('error_log', dirname(__FILE__) . '/../logs/' . WP_ENV . '-debug.log');
+	ini_set('error_log', ERROR_LOG);
 }
 
 /**#@-*/

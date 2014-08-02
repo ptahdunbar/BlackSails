@@ -50,4 +50,8 @@ if ( ! defined('WPLANG') ) {
     define('WPLANG', '');
 }
 
+if ( ! defined('ERROR_LOG') ) {
+	define('ERROR_LOG', dirname(__FILE__) . '/../logs/' . WP_ENV . '-debug.log');
+}
+
 /**#@-*/
