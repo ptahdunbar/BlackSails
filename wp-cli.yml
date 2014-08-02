@@ -2,18 +2,26 @@
 path: public/wp
 
 # Load PHP file before running the command (may be used more than once)
-require: wp-cli/loader.php
+require:
+  - wp-cli/loader.php
+  - vendor/autoload.php
+  - config/global-config.php
+#  - config/sample-config.php
+
+# ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
+# Change sample-config.php to the
+# whatever WP_ENV is set to.
 
 # Show all PHP errors
 debug: true
 
 # Create the WordPress tables in the database.
 #core install:
-#    url: http://wpss.dev/wp
-#    title: wpss.dev
-#    admin_email: admin@localhost.com
-#    admin_user: admin
-#    admin_password: password
+#    url: http://wp.dev/wp
+#    title: wp.dev
+#    admin_email: admin@localhost
+#    admin_user: username_here
+#    admin_password: password_here
 
 # Skip loading all or some plugins
 # skip-plugins: <list>
