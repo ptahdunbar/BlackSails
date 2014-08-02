@@ -24,30 +24,30 @@ define('NONCE_SALT',       'put your unique phrase here');
 
 /** Custom content directory. */
 if ( ! defined('WP_CONTENT_DIR') ) {
-    define('WP_CONTENT_DIR', ABSPATH . '../content');
+	define('WP_CONTENT_DIR', ABSPATH . '../content');
 }
 
 /** Custom content url. */
 if ( ! defined('WP_CONTENT_URL') && isset($_SERVER['HTTP_HOST']) ) {
-    define( 'WP_CONTENT_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/content' );
+	define( 'WP_CONTENT_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/content' );
 }
 
 /** Database charset to use in creating database tables. */
 if ( ! defined('DB_CHARSET') ) {
-    define('DB_CHARSET', 'utf8');
+	define('DB_CHARSET', 'utf8');
 }
 
 /** The Database Collate type. Don't change this if in doubt. */
 if ( ! defined('DB_COLLATE') ) {
-    define('DB_COLLATE', '');
+	define('DB_COLLATE', '');
 }
 
 if ( ! isset($table_prefix) ) {
-    $table_prefix  = 'wp_';
+	$table_prefix  = 'wp_';
 }
 
 if ( ! defined('WPLANG') ) {
-    define('WPLANG', '');
+	define('WPLANG', '');
 }
 
 if ( ! defined('ERROR_LOG') ) {
