@@ -44,7 +44,7 @@ include_once $__root_dir . '/config/global-config.php';
 include_once $__root_dir . '/config/' . WP_ENV .'-config.php';
 
 /** Custom error logs path. */
-if ( define('WP_DEBUG') && WP_DEBUG ) {
+if ( defined('WP_DEBUG') && WP_DEBUG ) {
 	ini_set('error_log', ERROR_LOG);
 }
 
