@@ -12,7 +12,7 @@ wp-cli.local.yml
 
 config/*.php
 !config/global-config.php
-!config/global-config.php
+!config/sample-config.php
 
 # IDE
 .idea
