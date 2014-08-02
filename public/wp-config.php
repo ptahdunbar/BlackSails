@@ -18,6 +18,9 @@
  * Nginx:
  *  fastcgi_param WP_ENV production;
  *
+ * WP-CLI:
+ * export WP_ENV=production
+ *
  * NOTE: 'test' is used by the automated testing framework.
  */
 if ( ! defined('WP_ENV') ) {
