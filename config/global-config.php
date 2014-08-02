@@ -42,6 +42,8 @@ if ( ! defined('DB_COLLATE') ) {
 	define('DB_COLLATE', '');
 }
 
+global $table_prefix;
+
 if ( ! isset($table_prefix) ) {
 	$table_prefix  = 'wp_';
 }
