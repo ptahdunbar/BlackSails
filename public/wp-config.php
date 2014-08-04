@@ -40,11 +40,11 @@ if ( file_exists($__root_dir . '/vendor/autoload.php') ) {
 	include_once $__root_dir . '/vendor/autoload.php';
 }
 
-/** Include global settings **/
-include_once $__root_dir . '/config/global-config.php';
-
 /** Include environment settings **/
 include_once $__root_dir . '/config/' . WP_ENV .'-config.php';
+
+/** Include global settings **/
+include_once $__root_dir . '/config/global-config.php';
 
 /** Custom error logs path. */
 if ( defined('WP_DEBUG') && WP_DEBUG ) {
