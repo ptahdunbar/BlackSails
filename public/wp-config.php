@@ -41,7 +41,10 @@ if ( file_exists($__root_dir . '/vendor/autoload.php') ) {
 }
 
 /** Include environment settings **/
-include_once $__root_dir . '/config/' . WP_ENV .'-config.php';
+$env_config = $__root_dir . '/config/' . WP_ENV .'-config.php';
+if ( file_exists($env_config) ) {
+	include_once $env_config;
+}
 
 /** Include global settings **/
 include_once $__root_dir . '/config/global-config.php';

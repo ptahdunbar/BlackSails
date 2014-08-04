@@ -5,8 +5,8 @@ path: public/wp
 require:
   - wp-cli/loader.php
   - vendor/autoload.php
-  - config/global-config.php
 #  - config/sample-config.php
+  - config/global-config.php
 
 # ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
 # Change sample-config.php to the
