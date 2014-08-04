@@ -24,7 +24,7 @@ define('NONCE_SALT',       'put your unique phrase here');
 
 /** Custom content directory. */
 if ( ! defined('WP_CONTENT_DIR') ) {
-	define('WP_CONTENT_DIR', ABSPATH . '../content');
+	define('WP_CONTENT_DIR', dirname(__FILE__) . '/../public/content');
 }
 
 /** Custom content url. */
