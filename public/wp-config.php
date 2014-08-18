@@ -50,7 +50,7 @@ if ( file_exists($env_config) ) {
 include_once $__root_dir . '/config/global-config.php';
 
 /** Custom error logs path. */
-if ( defined('WP_DEBUG') && WP_DEBUG ) {
+if ( defined('ERROR_LOG') && ERROR_LOG && defined('WP_DEBUG') && WP_DEBUG ) {
 	ini_set('error_log', ERROR_LOG);
 }
 
