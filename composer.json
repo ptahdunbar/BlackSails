@@ -18,7 +18,7 @@
 
     "require": {
         "php": ">=5.4",
-        "wordpress/wordpress": "3.9",
+        "wordpress/wordpress": "4.0.1",
         "wp-cli/wp-cli": "0.13",
         "ptahdunbar/wp-skeleton-theme": "dev-master",
         "ptahdunbar/wp-skeleton-plugin": "dev-master"
@@ -62,15 +62,15 @@
             "package": {
                 "name": "wordpress/wordpress",
                 "type": "drupal-module",
-                "version": "3.9",
+                "version": "4.0.1",
                 "dist": {
-                    "url": "https://github.com/WordPress/WordPress/archive/3.9-branch.zip",
+                    "url": "https://github.com/WordPress/WordPress/archive/4.0.1.zip",
                     "type": "zip"
                 },
                 "source": {
                     "url": "https://github.com/WordPress/WordPress",
                     "type": "git",
-                    "reference": "3.9"
+                    "reference": "4.0.1"
                 },
                 "require": {
                     "composer/installers": "~1.0"
