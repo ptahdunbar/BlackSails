@@ -22,6 +22,3 @@ debug: true
 #    admin_email: admin@localhost
 #    admin_user: username_here
 #    admin_password: password_here
-
-# Skip loading all or some plugins
-# skip-plugins: <list>
