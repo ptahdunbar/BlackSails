@@ -3,14 +3,9 @@ path: public/wp
 
 # Load PHP file before running the command (may be used more than once)
 require:
-  - wp-cli/loader.php
+  - wp-cli.php
+  - config/app.php
   - vendor/autoload.php
-#  - config/sample-config.php
-  - config/global-config.php
-
-# ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
-# Change sample-config.php to the
-# whatever WP_ENV is set to.
 
 # Show all PHP errors
 debug: true
@@ -19,9 +14,6 @@ debug: true
 #core install:
 #    url: http://wp.dev/wp
 #    title: wp.dev
-#    admin_email: admin@localhost
-#    admin_user: username_here
-#    admin_password: password_here
-
-# Skip loading all or some plugins
-# skip-plugins: <list>
+#    admin_email: admin@example.com
+#    admin_user: admin
+#    admin_password: password

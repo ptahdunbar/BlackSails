@@ -1,13 +1,9 @@
 {
     "name": "ptahdunbar/wp-skeleton-site",
-    "homepage": "https://github.com/ptahdunbar/wp-skeleton-site",
-    "description": "A walking skeleton WordPress site. -_O",
-    "type": "project",
-    "license": "GPL-2.0+",
-
-    "keywords": [
-        "WordPress", "plugins", "themes", "php", "skeleton"
-    ],
+	"description": "A modern WordPress stack.",
+	"homepage": "https://github.com/ptahdunbar/wp-skeleton-site",
+	"type": "project",
+    "license": "GPL2+",
 
     "authors": [
         {
@@ -18,64 +14,28 @@
 
     "require": {
         "php": ">=5.4",
-        "wordpress/wordpress": "3.9",
-        "wp-cli/wp-cli": "0.13",
+	    "johnpbloch/wordpress": "4.1",
+	    "composer/installers": "v1.0.12",
+        "wp-cli/wp-cli": "0.17",
         "ptahdunbar/wp-skeleton-theme": "dev-master",
         "ptahdunbar/wp-skeleton-plugin": "dev-master"
     },
 
     "require-dev" : {
-        "phing/phing": "2.*",
-        "phpunit/phpunit": "~4.1",
-        "phpunit/phpunit-selenium" : ">=1.2",
-        "whatthejeff/nyancat-phpunit-resultprinter": "~1.1",
-        "whatthejeff/fab-phpunit-resultprinter": "~1.1",
-        "behat/behat": "2.4.*@stable",
-        "behat/mink": "1.4.*@stable",
+        "behat/behat": "3.0.*@dev",
+        "behat/mink": "1.6.*@dev",
         "behat/mink-extension": "*",
         "behat/mink-goutte-driver": "*",
         "behat/mink-selenium2-driver": "*",
-        "behat/mink-zombie-driver": "*",
-        "facebook/webdriver": "*"
+        "behat/mink-zombie-driver": "*"
     },
 
     "extra": {
         "installer-paths": {
-            "public/wp/": ["type:drupal-module"],
-            "public/content/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
-            "public/content/plugins/{$name}/": ["type:wordpress-plugin"],
-            "public/content/themes/{$name}/": ["type:wordpress-theme"]
-        }
-    },
-
-    "scripts" : {
-        "post-create-project-install": "[ -e composer.phar ] && composer.phar update || composer update"
-    },
-
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "http://wpackagist.org"
+            "public/app/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
+            "public/app/plugins/{$name}/": ["type:wordpress-plugin"],
+            "public/app/themes/{$name}/": ["type:wordpress-theme"]
         },
-        {
-            "type": "package",
-            "package": {
-                "name": "wordpress/wordpress",
-                "type": "drupal-module",
-                "version": "3.9",
-                "dist": {
-                    "url": "https://github.com/WordPress/WordPress/archive/3.9-branch.zip",
-                    "type": "zip"
-                },
-                "source": {
-                    "url": "https://github.com/WordPress/WordPress",
-                    "type": "git",
-                    "reference": "3.9"
-                },
-                "require": {
-                    "composer/installers": "~1.0"
-                }
-            }
-        }
-    ]
+	    "wordpress-install-dir": "public/wp"
+    }
 }

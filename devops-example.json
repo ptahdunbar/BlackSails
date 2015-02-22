@@ -1,0 +1,6 @@
+[
+    {
+        "hostname": "devops.dev",
+        "scripts": "https://gist.githubusercontent.com/ptahdunbar/e3e44c161149e5164928/raw/9662aa2758726bdad0020cb3a384031e03abf09d/provision-script-example.sh"
+    }
+]

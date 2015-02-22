@@ -18,12 +18,13 @@ class Example_Command extends \WP_CLI_Command
      *
      * @synopsis <name>
      */
-    function ahoy( $args, $assoc_args ) {
+    function ahoy( $args, $assoc_args )
+    {
         list( $name ) = $args;
 
         // Print a success message
-        WP_CLI::success( "Ahoy, $name! wp-cli works ;D" );
+        WP_CLI::success("Ahoy, $name! wp-cli works ;D");
     }
 }
 
-WP_CLI::add_command( 'example', 'Example_Command' );
+WP_CLI::add_command('example', 'Example_Command');
