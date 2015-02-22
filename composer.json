@@ -14,20 +14,8 @@
 
     "require": {
         "php": ">=5.4",
-	    "johnpbloch/wordpress": "4.1",
-	    "composer/installers": "v1.0.12",
-        "wp-cli/wp-cli": "0.17",
-        "ptahdunbar/wp-skeleton-theme": "dev-master",
-        "ptahdunbar/wp-skeleton-plugin": "dev-master"
-    },
-
-    "require-dev" : {
-        "behat/behat": "3.0.*@dev",
-        "behat/mink": "1.6.*@dev",
-        "behat/mink-extension": "*",
-        "behat/mink-goutte-driver": "*",
-        "behat/mink-selenium2-driver": "*",
-        "behat/mink-zombie-driver": "*"
+        "composer/installers": "v1.0.12",
+        "johnpbloch/wordpress": "4.1"
     },
 
     "extra": {
