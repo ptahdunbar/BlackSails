@@ -1,18 +1,23 @@
-# WordPress in a subdirectory.
-path: public/wp
+# http://wp-cli.org/config/
 
-# Load PHP file before running the command (may be used more than once)
+path: web/wp
+
 require:
-  - wp-cli.php
   - config/app.php
   - vendor/autoload.php
 
-# Show all PHP errors
 debug: true
 
-# Create the WordPress tables in the database.
-#core install:
-#    url: http://wp.dev/wp
-#    admin_email: admin@localhost
-#    admin_user: username_here
-#    admin_password: password_here
+core install:
+    url: http://pressvarr.dev
+    title: pressvarr.dev
+    admin_email: admin@localhost.dev
+    admin_user: admin
+    admin_password: password
+
+core multisite-install:
+    url: http://pressvarr.dev
+    title: pressvarr.dev
+    admin_email: admin@localhost.dev
+    admin_user: admin
+    admin_password: password

@@ -1,9 +1,11 @@
 {
-    "name": "ptahdunbar/wp-skeleton-site",
-	"description": "A modern WordPress stack.",
-	"homepage": "https://github.com/ptahdunbar/wp-skeleton-site",
+    "name": "ptahdunbar/pressvarrs",
+	"description": "Professional WordPress Development",
+	"homepage": "https://github.com/ptahdunbar/pressvarrs",
 	"type": "project",
     "license": "GPL2+",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
 
     "authors": [
         {
@@ -15,15 +17,16 @@
     "require": {
         "php": ">=5.4",
         "composer/installers": "v1.0.12",
-        "johnpbloch/wordpress": "4.1"
+        "vlucas/phpdotenv": "2.*@dev",
+        "johnpbloch/wordpress": "~4.1"
     },
 
     "extra": {
+	    "wordpress-install-dir": "public/wp",
         "installer-paths": {
-            "public/app/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
-            "public/app/plugins/{$name}/": ["type:wordpress-plugin"],
-            "public/app/themes/{$name}/": ["type:wordpress-theme"]
-        },
-	    "wordpress-install-dir": "public/wp"
+            "public/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
+            "public/plugins/{$name}/": ["type:wordpress-plugin"],
+            "public/themes/{$name}/": ["type:wordpress-theme"]
+        }
     }
 }

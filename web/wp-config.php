@@ -5,17 +5,10 @@
  * Instead, edit the config files found in the config/ directory.
  */
 
-/**
- * Load dependencies from composer.
- *
- * NOTE: run: `composer install` if this file doesn't exists.
- */
-if ( file_exists( dirname(__DIR__) . 'vendor/autoload.php') ) {
-	require_once dirname(__DIR__) . 'vendor/autoload.php';
-}
-
 /** Load WordPress configuration settings */
 require_once dirname(__DIR__) . '/config/app.php';
+
+/* That's all, stop editing! Happy blogging. */
 
 /** Load the WordPress environment */
 require_once ABSPATH . 'wp-settings.php';

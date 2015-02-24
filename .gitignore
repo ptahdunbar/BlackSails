@@ -1,18 +1,12 @@
-.vagrant/
-devops.local.json
-
+.vagrant
 vendor
-logs/*.log
 
-config/*.php
-!config/environments/*.php
-!config/sample-environment.php
-
+.env
+devops.local.json
 wp-cli.local.yml
 
-# Project files
-public/wp
-public/app/upgrade
-public/app/uploads
-public/app/themes/wp-skeleton-theme
-public/app/plugins/wp-skeleton-plugin
+web/wp
+web/app/upgrade
+web/app/uploads
+web/app/themes/wp-skeleton-theme
+web/app/plugins/wp-skeleton-plugin

@@ -9,4 +9,8 @@
  * License:      GPL2+
  */
 
-register_theme_directory( ABSPATH . 'wp-content/themes/' );
+add_action('muplugins_loaded', 'pressvarrs_register_default_themes_directory', 5);
+function pressvarrs_register_default_themes_directory()
+{
+	register_theme_directory(ABSPATH . 'wp-content/themes/');
+}
