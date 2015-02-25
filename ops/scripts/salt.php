@@ -4,15 +4,20 @@
  */
 class Salt_Command extends \WP_CLI_Command
 {
-    function generate( $args, $assoc_args )
+    function generate($args, $assoc_args)
     {
-        $file = dirname( __DIR__ ) . '/.env';
+        $file = realpath(dirname( __DIR__ ) . '/../.env');
+	    $force = false;
+
+	    if ( isset($assoc_args['force']) OR in_array('-f', $args) ) {
+		    $force = true;
+	    }
 
         if ( ! file_exists($file) ) {
             WP_CLI::error("File doesn't exists");
         }
 
-        if ( stripos(file_get_contents($file), 'AUTH_KEY') !== false ) {
+        if ( stripos(file_get_contents($file), 'AUTH_KEY') !== false && ! $force ) {
             WP_CLI::warning("Auth keys and salts already added.");
             return;
         }
