@@ -19,11 +19,11 @@ mysql -uroot -proot -e "CREATE DATABASE IF NOT EXISTS wordpress;"
 ln -s /srv/ops/apache.vhost.conf /etc/apache2/sites-enabled/pressvarrs
 #ln -s /srv/ops/nginx.vhost.conf /etc/nginx/sites-enabled/pressvarrs
 
+# setup the .env file
+if [ ! -e /srv/.env ]; then
+	echo "Created .env config file! Please review before continuing."
+	cp /srv/.env.defaults /srv/.env
+fi
 
 # reboot for any changes
 sudo service apache2 restart
-
-# setup the .env file
-if [ ! -f /srv/.env ]; then
-	cp /srv/.env.defaults /srv.env
-fi
