@@ -9,9 +9,6 @@ if ! which apache > /dev/null 2>&1; then
 	sudo a2enmod actions fastcgi alias rewrite ssl
 fi
 
-# add user to group: www-data
-sudo usermod -a -G www-data vagrant
-
 rm /etc/apache2/sites-available/*
 rm /etc/apache2/sites-enabled/*
 sudo rm -fr /var/www

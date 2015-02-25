@@ -11,7 +11,7 @@ require 'json'
 system "composer install" unless File.exist? "vendor/autoload.php"
 
 # Install vagrant plugins
-required_plugins = %w(vagrant-cachier vagrant-exec vagrant-pristine vagrant-hostsupdater vagrant-digitalocean vagrant-aws vagrant-managed-servers)
+required_plugins = %w(vagrant-cachier vagrant-exec vagrant-pristine vagrant-hostsupdater vagrant-awsinfo vagrant-aws vagrant-digitalocean vagrant-managed-servers)
 required_plugins.each do |plugin|
     system "vagrant plugin install #{plugin}" unless Vagrant.has_plugin? plugin
 end
@@ -28,7 +28,7 @@ elsif File.exists? "devops.json"
 else
     data = %{[
     {
-        "hostname": "pressvarr.dev"
+        "hostname": "pressvarrs"
     }
 ]}
 	f = File.new("devops.json", "w")
@@ -148,7 +148,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             configure_node.ssh.username = node["settings"]["ssh_username"] if node["settings"]["ssh_username"]
             configure_node.ssh.host = node["settings"]["ssh_host"] if node["settings"]["ssh_host"]
             configure_node.ssh.port = node["settings"]["ssh_port"] if node["settings"]["ssh_port"]
-            configure_node.ssh.private_key_path = node["settings"]["ssh_private_key_path"] if node["settings"]["ssh_private_key_path"]
+            configure_node.ssh.private_key_path = node["settings"]["private_key_path"] if node["settings"]["private_key_path"]
             configure_node.ssh.forward_agent = node["settings"]["forward_agent"] if node["settings"]["forward_agent"]
             configure_node.ssh.forward_x11 = node["settings"]["forward_x11"] if node["settings"]["forward_x11"]
             configure_node.ssh.shell = node["settings"]["shell"] if node["settings"]["shell"]
@@ -193,8 +193,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             if node["aws"]
                 override.vm.box_url = "https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box"
 
-                # Alternative: export AWS_SECRET_KEY=secret_key and AWS_ACCESS_KEY=secret_key
-                aws.access_key_id = node["aws"]["access_key_id"] if node["aws"]["access_key_id"]
+                # Alternative approach: add this to your .bashrc or .zshrc file
+                # export AWS_SECRET_KEY=secret_key
+                # export AWS_ACCESS_KEY=secret_key
+                aws.access_key_id = node["aws"].include?("access_key_id") ? node["aws"]["access_key_id"] : ENV["AWS_ACCESS_KEY"]
+                aws.secret_access_key = node["aws"].include?("secret_access_key") ? node["aws"]["secret_access_key"] : ENV["AWS_SECRET_KEY"]
 
                 # Required
                 override.ssh.private_key_path = node["aws"]["private_key_path"]
@@ -202,13 +205,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                 aws.keypair_name = node["aws"]["keypair_name"]
 
                 # Optional
+                aws.security_groups = node["aws"].include?("security_groups") ? node["aws"]["security_groups"] : 'default'
                 aws.ami = node["aws"].include?("ami") ? node["aws"]["ami"] : 'ami-9a562df2'
                 aws.region = node["aws"].include?("region") ? node["aws"]["region"] : 'us-east-1'
                 aws.availability_zone = node["aws"]["availability_zone"] if node["aws"]["availability_zone"]
-                aws.instance_type = node["aws"].include?("instance_type") ? node["aws"]["instance_type"] : 't2.micro'
-                aws.elastic_ip = node["aws"]["elastic_ip"] if node["aws"]["elastic_ip"]
-                aws.security_groups = node["aws"]["security_groups"] if node["aws"]["security_groups"]
+                aws.instance_type = node["aws"].include?("instance_type") ? node["aws"]["instance_type"] : 'm3.medium'
                 aws.subnet_id = node["aws"]["subnet_id"] if node["aws"]["subnet_id"]
+                aws.elastic_ip = node["aws"]["elastic_ip"] if node["aws"]["elastic_ip"]
 
                 aws.session_token = node["aws"]["session_token"] if node["aws"]["session_token"]
                 aws.use_iam_profile = node["aws"]["use_iam_profile"] if node["aws"]["use_iam_profile"]

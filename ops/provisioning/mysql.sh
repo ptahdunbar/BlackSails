@@ -8,7 +8,7 @@ if ! mysql --version > /dev/null 2>&1; then
 fi
 
 # update root password
-mysqladmin -u root password root
+mysqladmin -uroot -proot password root
 
 # my.cnf
 sudo sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mysql/my.cnf
