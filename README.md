@@ -1,6 +1,6 @@
 # PressVarrs
 
-> This is a work in progress. Very alpha, subject to sweeping changes at random intervals :)
+> This is a work in progress. Subject to sweeping changes at random intervals until the 1.0.0 :)
 
 ### Prerequisites
 - [Latest Vagrant](http://vagrantup.com)
