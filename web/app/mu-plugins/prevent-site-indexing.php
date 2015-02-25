@@ -9,8 +9,8 @@
  * License:      GPL2+
  */
 
-add_action('template_redirect', '__pressvarr_private_site');
-function __pressvarr_private_site()
+add_action('template_redirect', 'pressvarrs_prevent_site_indexing');
+function pressvarrs_prevent_site_indexing()
 {
 	if ( WP_ENV !== 'production' ) {
 		add_action('pre_option_blog_public', '__return_zero');

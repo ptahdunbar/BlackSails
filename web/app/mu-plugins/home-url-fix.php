@@ -9,8 +9,8 @@
  * License:      GPL2+
  */
 
-add_action('wp_install', '__pressvarr_fix_home_url');
-function __pressvarr_fix_home_url()
+add_action('wp_install', 'pressvarrs_fix_home_url');
+function pressvarrs_fix_home_url()
 {
 	global $wpdb;
 
