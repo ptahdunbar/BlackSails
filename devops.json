@@ -1,0 +1,23 @@
+[
+    {
+        "hostname": "pressvarrs",
+        "synced_folders" : [
+            {
+                "host" : ".",
+                "guest" : "/srv",
+                "group": "www-data",
+                "mount_options": [
+                    "dmode=775",
+                    "fmode=664"
+                ]
+            }
+        ],
+        "scripts": [
+            "ops/provisioning/base.sh",
+            "ops/provisioning/mysql.sh",
+            "ops/provisioning/apache.sh",
+            "ops/provisioning/php.sh",
+            "ops/provisioning/app.sh"
+        ]
+    }
+]
