@@ -9,15 +9,15 @@ require:
 debug: true
 
 core install:
-    url: http://pressvarr.dev
-    title: pressvarr.dev
+    url: ignored; uses WP_HOME
+    title: PressVarrs.dev
     admin_email: admin@localhost.dev
     admin_user: admin
     admin_password: password
 
 core multisite-install:
-    url: http://pressvarr.dev
-    title: pressvarr.dev
+    url: ignored; uses WP_HOME
+    title: PressVarrs.dev MS
     admin_email: admin@localhost.dev
     admin_user: admin
     admin_password: password
