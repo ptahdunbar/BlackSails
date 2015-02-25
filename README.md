@@ -53,6 +53,31 @@ Required definitions:
 - [Check out the AWS documentation](http://aws.amazon.com/ec2/instance-types/) on various instance types available.
 
 
+# Vagrant up to Digital Ocean
+
+```
+vagrant up --provider=digital_ocean
+```
+Required definitions:
+
+- token
+- private_key_path
+
+### Example devops.json for DO
+
+```
+[
+    {
+        "hostname": "pressvarrs",
+        "digital_ocean": {
+            "token": "xxxxxxxxxx",
+            "private_key_path": "~/.ssh/my-do-keypair.pem"
+        }
+    }
+]
+```
+
+
 # Troubleshooting
 
 ```
