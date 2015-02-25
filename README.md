@@ -55,8 +55,6 @@ Required definitions:
 
 # Troubleshooting
 
-- Running `vagrant up --provider=aws` throws the following error:
-- 
 ```
 VPCResourceNotSpecified => The specified instance type can only be used in a VPC. A subnet ID or network interface ID is required to carry out the request.
 ```
