@@ -8,14 +8,25 @@ sudo apt-get -y install php5-curl php5-gd php5-imagick php5-mcrypt php5-memcache
 
 # php.ini
 sudo sed -i 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' /etc/php5/fpm/php.ini
+sudo sed -i 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' /etc/php5/apache2/php.ini
 
 sudo sed -i 's/display_errors = Off/display_errors = On/g' /etc/php5/fpm/php.ini
 sudo sed -i 's/display_startup_errors = Off/display_startup_errors = On/g' /etc/php5/fpm/php.ini
 sudo sed -i 's/expose_php = On/expose_php = Off/g' /etc/php5/fpm/php.ini
-
-#sudo sed -i 's/post_max_size = 8M/post_max_size = 8M/g' /etc/php5/fpm/php.ini
-#sudo sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 8M/g' /etc/php5/fpm/php.ini
+sudo sed -i 's/post_max_size = 8M/post_max_size = 100M/g' /etc/php5/fpm/php.ini
+sudo sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 100M/g' /etc/php5/fpm/php.ini
+sudo sed -i 's/max_input_time = 60/max_input_time = 180/g' /etc/php5/fpm/php.ini
+sudo sed -i 's/max_execution_time = 30/max_execution_time = 90/g' /etc/php5/fpm/php.ini
 #sudo sed -i 's/memory_limit = 128M/memory_limit = 128M/g' /etc/php5/fpm/php.ini
+
+sudo sed -i 's/display_errors = Off/display_errors = On/g' /etc/php5/apache2/php.ini
+sudo sed -i 's/display_startup_errors = Off/display_startup_errors = On/g' /etc/php5/apache2/php.ini
+sudo sed -i 's/expose_php = On/expose_php = Off/g' /etc/php5/apache2/php.ini
+sudo sed -i 's/post_max_size = 8M/post_max_size = 100M/g' /etc/php5/apache2/php.ini
+sudo sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 100M/g' /etc/php5/apache2/php.ini
+#sudo sed -i 's/max_input_time = 60/max_input_time = 180/g' /etc/php5/apache2/php.ini
+#sudo sed -i 's/max_execution_time = 30/max_execution_time = 90/g' /etc/php5/apache2/php.ini
+#sudo sed -i 's/memory_limit = 128M/memory_limit = 128M/g' /etc/php5/apache2/php.ini
 
 # php.ini: opcache
 #sudo sed -i 's/;opcache.enable=0/opcache.enable=1/g' /etc/php5/fpm/php.ini
