@@ -78,6 +78,20 @@ Required definitions:
 ```
 
 
+# Vagrant plugins
+
+The following plugins are in use:
+
+- [vagrant-triggers](https://github.com/fgrehm/vagrant-cachier)
+- [vagrant-cachier](https://github.com/fgrehm/vagrant-cachier)
+- [vagrant-exec](https://github.com/p0deje/vagrant-exec)
+- [vagrant-pristine](https://github.com/fgrehm/vagrant-pristine)
+- [vagrant-hostsupdater](https://github.com/cogitatio/vagrant-hostsupdater)
+- [vagrant-awsinfo](https://github.com/johntdyer/vagrant-awsinfo)
+- [vagrant-aws](https://github.com/mitchellh/vagrant-aws)
+- [vagrant-digitalocean](https://github.com/smdahlen/vagrant-digitalocean)
+- [vagrant-managed-servers](https://github.com/tknerr/vagrant-managed-servers)
+
 # Troubleshooting
 
 ```
