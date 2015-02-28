@@ -1,8 +1,8 @@
 # For a complete reference of vagrant, please see the online documentation at
 # https://docs.vagrantup.com.
 #
-# For a complete reference of DevOps, please see the online documentation at
-# https://github.com/ptahdunbar/DevOps
+# For a complete reference of Varrgrant for Vagrant, please see the online documentation at
+# https://github.com/ptahdunbar/Vagrant.json
 
 require 'rubygems'
 require 'json'
@@ -16,27 +16,27 @@ required_plugins.each do |plugin|
     system "vagrant plugin install #{plugin}" unless Vagrant.has_plugin? plugin
 end
 
-# Default to local version of devops.json
-if File.exists? "DevOps.local.json"
-	boxfile = "devops.local.json"
+# Try Vagrant.local.json first
+if File.exists? "Vagrant.local.json"
+	boxfile = "Vagrant.local.json"
 
-# If not try devops.json
-elsif File.exists? "devops.json"
-	boxfile = "devops.json"
+# Okay, try Vagrant.json
+elsif File.exists? "Vagrant.json"
+	boxfile = "Vagrant.json"
 
-# Create a devops based off the example file.
+# Create a Vagrant based off the example file.
 else
     data = %{[
     {
-        "hostname": "pressvarrs"
+        "hostname": "vagrant"
     }
 ]}
-	f = File.new("devops.json", "w")
+	f = File.new("Vagrant.json", "w")
     f.write(data)
     f.close
 
-	puts "[success] Created devops.json. Configure your VM and launch vagrant up!"
-	puts "[info] Configure your vagrant environment by adding devops definitions to devops.json."
+	puts "[success] Created Vagrant.json. Configure your VM and launch vagrant up!"
+	puts "[info] Configure your vagrant environment by adding Vagrant definitions to Vagrant.json."
 	exit
 end
 
@@ -151,7 +151,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             configure_node.ssh.private_key_path = node["settings"]["private_key_path"] if node["settings"]["private_key_path"]
             configure_node.ssh.forward_agent = node["settings"]["forward_agent"] if node["settings"]["forward_agent"]
             configure_node.ssh.forward_x11 = node["settings"]["forward_x11"] if node["settings"]["forward_x11"]
-            configure_node.ssh.shell = node["settings"]["shell"] if node["settings"]["shell"]
+            configure_node.ssh.insert_key = node["settings"].include? "insert_key" ? node["settings"]["insert_key"] : true
 
             if node["settings"]["disable_default_synced_folder"]
                 configure_node.configure_node.synced_folder ".", "/vagrant", id: "vagrant-root", disabled: true
@@ -205,11 +205,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                 aws.keypair_name = node["aws"]["keypair_name"]
 
                 # Optional
-                aws.security_groups = node["aws"].include?("security_groups") ? node["aws"]["security_groups"] : 'default'
-                aws.ami = node["aws"].include?("ami") ? node["aws"]["ami"] : 'ami-9a562df2'
-                aws.region = node["aws"].include?("region") ? node["aws"]["region"] : 'us-east-1'
+                aws.security_groups = node["aws"].include?("security_groups") ? node["aws"]["security_groups"] : [ "default" ]
+                aws.ami = node["aws"].include?("ami") ? node["aws"]["ami"] : "ami-9a562df2"
+                aws.region = node["aws"].include?("region") ? node["aws"]["region"] : "us-east-1"
                 aws.availability_zone = node["aws"]["availability_zone"] if node["aws"]["availability_zone"]
-                aws.instance_type = node["aws"].include?("instance_type") ? node["aws"]["instance_type"] : 'm3.medium'
+                aws.instance_type = node["aws"].include?("instance_type") ? node["aws"]["instance_type"] : "m3.medium"
                 aws.subnet_id = node["aws"]["subnet_id"] if node["aws"]["subnet_id"]
                 aws.elastic_ip = node["aws"]["elastic_ip"] if node["aws"]["elastic_ip"]
 
@@ -240,9 +240,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                 override.ssh.private_key_path = node["digital_ocean"]["private_key_path"]
                 override.ssh.username = node["digital_ocean"]["username"] if node["digital_ocean"]["username"]
                 digital_ocean.ssh_key_name = node["digital_ocean"].include?("ssh_key_name") ? node["digital_ocean"]["ssh_key_name"] : 'Vagrant'
-                digital_ocean.image = node["digital_ocean"].include?("image") ? node["digital_ocean"]["image"] : 'ubuntu-14-04-x64'
-                digital_ocean.region = node["digital_ocean"].include?("region") ? node["digital_ocean"]["region"] : 'nyc2'
-                digital_ocean.size = node["digital_ocean"].include?("size") ? node["digital_ocean"]["size"] : '512mb'
+                digital_ocean.image = node["digital_ocean"].include?("image") ? node["digital_ocean"]["image"] : "ubuntu-14-04-x64"
+                digital_ocean.region = node["digital_ocean"].include?("region") ? node["digital_ocean"]["region"] : "nyc2"
+                digital_ocean.size = node["digital_ocean"].include?("size") ? node["digital_ocean"]["size"] : "512mb"
                 digital_ocean.ipv6 = node["digital_ocean"].include?("ipv6") ? node["digital_ocean"]["ipv6"] : false
                 digital_ocean.private_networking = node["digital_ocean"].include?("private_networking") ? node["digital_ocean"]["private_networking"] : false
                 digital_ocean.backups_enabled = node["digital_ocean"].include?("backups_enabled") ? node["digital_ocean"]["backups_enabled"] : false

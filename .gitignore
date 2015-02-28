@@ -1,8 +1,8 @@
 .vagrant
-vendor
+Vagrant.local.json
 
+vendor
 .env
-devops.local.json
 wp-cli.local.yml
 
 web/wp

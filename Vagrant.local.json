@@ -1,0 +1,24 @@
+[
+    {
+        "hostname": "pressvarrs",
+        "github_ssh_keys": "ptahdunbar",
+        "synced_folders" : [
+            {
+                "host" : ".",
+                "guest" : "/srv",
+                "group": "www-data",
+                "mount_options": [
+                    "dmode=775",
+                    "fmode=667"
+                ]
+            }
+        ],
+        "aws": {
+            "username": "ubuntu",
+            "keypair_name": "aws-dunbardunbar",
+            "private_key_path": "~/.ssh/aws-dunbardunbar.pem"
+        },
+        "scripts": [
+        ]
+    }
+]
