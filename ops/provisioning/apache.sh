@@ -9,8 +9,8 @@ if ! which apache > /dev/null 2>&1; then
 	sudo a2enmod actions alias rewrite ssl
 fi
 
-rm /etc/apache2/sites-available/*  > /dev/null 2>&1
-rm /etc/apache2/sites-enabled/*  > /dev/null 2>&1
+rm /etc/apache2/sites-available/* > /dev/null 2>&1
+rm /etc/apache2/sites-enabled/* > /dev/null 2>&1
 sudo rm -fr /var/www
 
 sudo ln -s /srv/web /var/www
