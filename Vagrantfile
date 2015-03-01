@@ -151,7 +151,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             configure_node.ssh.private_key_path = node["settings"]["private_key_path"] if node["settings"]["private_key_path"]
             configure_node.ssh.forward_agent = node["settings"]["forward_agent"] if node["settings"]["forward_agent"]
             configure_node.ssh.forward_x11 = node["settings"]["forward_x11"] if node["settings"]["forward_x11"]
-            configure_node.ssh.insert_key = node["settings"].include? "insert_key" ? node["settings"]["insert_key"] : true
+            configure_node.ssh.insert_key = node["settings"].include?("insert_key") ? node["settings"]["insert_key"] : true
 
             if node["settings"]["disable_default_synced_folder"]
                 configure_node.configure_node.synced_folder ".", "/vagrant", id: "vagrant-root", disabled: true
@@ -263,6 +263,31 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                 run "vagrant exec 'cp /srv/ops/provisioning/pubkeys.sh /usr/local/bin && sudo chmod +x /usr/local/bin/*'"
                 run "vagrant exec 'pubkeys.sh #{node["github_ssh_keys"].join(" ")}'" if node["github_ssh_keys"].kind_of? Array
                 run "vagrant exec 'pubkeys.sh #{node["github_ssh_keys"]}'" if node["github_ssh_keys"].kind_of? String
+            end
+        end
+
+        if node["postfix"]
+            configure_node.exec.commands '*', directory: '~', prepend: 'sudo'
+
+            node["postfix"]["smtp_host"] = "smtp.gmail.com" unless node["postfix"]["smtp_host"]
+            node["postfix"]["smtp_port"] = 587 unless node["postfix"]["smtp_port"]
+
+            args = Array.new()
+
+            keys = {
+                :smtp_host => "h",
+	            :smtp_port => "s",
+	            :username => "u",
+	            :password => "p"
+            }
+
+            node["postfix"].each do |key, value|
+                args << "-" + keys["#{key}".to_sym] + "=" + value.to_s
+            end
+
+            configure_node.trigger.after :provision, :stdout => true do
+                run "vagrant exec 'cp /srv/ops/provisioning/postfix.sh /usr/local/bin && sudo chmod +x /usr/local/bin/*'"
+                run "vagrant exec 'postfix.sh #{args.join(" ")}'"
             end
         end
 
