@@ -7,7 +7,7 @@ fi
 
 for zeUser in "$@"
 do
-	echo "pubkeys: $zeUser"
+	echo "[github_ssh_keys]: $zeUser"
 
 	if [ ! -e /home/$zeUser ]; then
 		sudo useradd -d /home/$zeUser $zeUser
@@ -30,5 +30,5 @@ do
 	sudo chmod 700 /home/$zeUser/.ssh/
 done
 
-echo "pubkeys.sh - successfully completed :)"
+echo "[github_ssh_keys]: successfully completed :)"
 exit
