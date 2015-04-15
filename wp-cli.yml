@@ -10,14 +10,14 @@ debug: true
 
 core install:
     url: ignored; uses WP_HOME
-    title: PressVarrs.dev
+    title: BlackSails.dev
     admin_email: admin@localhost.dev
     admin_user: admin
     admin_password: password
 
 core multisite-install:
     url: ignored; uses WP_HOME
-    title: PressVarrs.dev MS
+    title: BlackSails.dev MS
     admin_email: admin@localhost.dev
     admin_user: admin
     admin_password: password
