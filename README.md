@@ -1,9 +1,9 @@
-# PressVarrs
+# Black Sails
 
 > This is a work in progress. Subject to sweeping changes at random intervals until the 1.0.0 :)
 
 ### Prerequisites
-* [VirtualBox](https://www.virtualbox.org/) or [AWS account](http://aws.amazon.com/) or [DigitalOcean account](http://digitalocean.com/).
+* [VirtualBox](https://www.virtualbox.org/) or [AWS account](http://aws.amazon.com/) or [DigitalOcean account](http://digitalocean.com/) or [MAMP](https://www.mamp.info/en/) or [WAMP](http://www.wampserver.com/en/).
 * Latest version [Vagrant](http://www.vagrantup.com/).
 
 # Install
@@ -24,4 +24,4 @@ This project makes use of [Vagrant.json](https://github.com/ptahdunbar/Vagrant.j
 
 ## Getting Help
 
-[Submit an issue](https://github.com/ptahdunbar/PressVarrs/issues/new) and I can provide further assistance.
+[Submit an issue](https://github.com/ptahdunbar/BlackSails/issues/new) and I can provide further assistance.
