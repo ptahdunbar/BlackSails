@@ -8,7 +8,7 @@
 
 # Install
 ```
-git clone git@github.com:ptahdunbar/pressvarrs.git
+git clone git@github.com:ptahdunbar/BlackSails.git
 ````
 
 # Getting started
