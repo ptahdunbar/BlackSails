@@ -13,7 +13,7 @@ git clone git@github.com:ptahdunbar/BlackSails.git
 
 # Getting started with Vagrant
 * Start by running the `vagrant` command to test that it's working.
-* Next, edit `vagrant.json` and describe/confirm your dev environment (see below for ideas or read through `Vagrantfile`).
+* Next, edit `vagrant.json` and describe/confirm your dev environment (see `Vagrantfile` or [Vagrant.json](https://github.com/ptahdunbar/Vagrant.json)).
 * `vagrant up`
 * `vagrant up --provider=aws` If you're deploying to AWS.
 * `vagrant up --provider=digital_ocean` If you're deploying to digital ocean.
