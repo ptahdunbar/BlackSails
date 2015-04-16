@@ -11,9 +11,9 @@
 git clone git@github.com:ptahdunbar/BlackSails.git
 ````
 
-# Getting started
-* Start by running `vagrant up` command or manually create a `devops.json` file.
-* Next, fill out `devops.json` describing your environment (see below for ideas or read through `Vagrantfile`).
+# Getting started with Vagrant
+* Start by running the `vagrant` command to test that it's working.
+* Next, edit `vagrant.json` and describe/confirm your dev environment (see below for ideas or read through `Vagrantfile`).
 * `vagrant up`
 * `vagrant up --provider=aws` If you're deploying to AWS.
 * `vagrant up --provider=digital_ocean` If you're deploying to digital ocean.
