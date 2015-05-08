@@ -1,4 +1,4 @@
-# Black Sails
+# PressVarrs
 
 > This is a work in progress. Subject to sweeping changes at random intervals until the 1.0.0 :)
 
@@ -8,7 +8,7 @@
 
 # Install
 ```
-git clone git@github.com:ptahdunbar/BlackSails.git
+git clone git@github.com:ptahdunbar/PressVarrs.git
 ````
 
 # Getting started using Vagrant
