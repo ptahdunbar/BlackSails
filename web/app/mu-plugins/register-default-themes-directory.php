@@ -12,5 +12,7 @@
 add_action('muplugins_loaded', 'pressvarrs_register_default_themes_directory', 5);
 function pressvarrs_register_default_themes_directory()
 {
-	register_theme_directory(ABSPATH . 'wp-content/themes/');
+	if ( apply_filters('register_default_themes_directory', true) ) {
+		register_theme_directory(ABSPATH . 'wp-content/themes/');
+	}
 }

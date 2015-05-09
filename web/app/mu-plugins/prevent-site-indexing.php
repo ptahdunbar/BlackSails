@@ -12,7 +12,7 @@
 add_action('template_redirect', 'pressvarrs_prevent_site_indexing');
 function pressvarrs_prevent_site_indexing()
 {
-	if ( WP_ENV !== 'production' ) {
+	if ( defined('WP_ENV') && WP_ENV !== 'production' ) {
 		add_action('pre_option_blog_public', '__return_zero');
 	}
 }

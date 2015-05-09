@@ -1,9 +1,11 @@
 <?php
 /**
  * Plugin Name:  Home is home
- * Plugin URI:   https://github.com/ptahdunbar/home-is-home
- * Description:  Bugfix with wp-cli `wp core install` not properly setting the home option in the db, resulting in subdirectory being in the url which you probably don't want for Multi-site install.
- * Version:      Master
+ * Plugin URI:   https://github.com/ptahdunbar/home-url-fix
+ * Description:  Bugfix with wp-cli `wp core install` not properly setting
+ *               the home option in the db, resulting in subdirectory being
+ * 				 in the url which you probably don't want for Multi-site install.
+ * Version:      1.0.0
  * Author:       ptahdunbar
  * Author URI:   https://github.com/ptahdunbar
  * License:      GPL2+
