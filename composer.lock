@@ -1,31 +1,32 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0c78be904d8b0f081c5e5ca815d9c42f",
+    "hash": "b6038c27dec6f1287803af17c5d93487",
     "packages": [
         {
             "name": "composer/installers",
-            "version": "v1.0.12",
+            "version": "v1.0.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "4127333b03e8b4c08d081958548aae5419d1a2fa"
+                "reference": "d64e23fce42a4063d63262b19b8e7c0f3b5e4c45"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/4127333b03e8b4c08d081958548aae5419d1a2fa",
-                "reference": "4127333b03e8b4c08d081958548aae5419d1a2fa",
+                "url": "https://api.github.com/repos/composer/installers/zipball/d64e23fce42a4063d63262b19b8e7c0f3b5e4c45",
+                "reference": "d64e23fce42a4063d63262b19b8e7c0f3b5e4c45",
                 "shasum": ""
             },
             "replace": {
+                "roundcube/plugin-installer": "*",
                 "shama/baton": "*"
             },
             "require-dev": {
                 "composer/composer": "1.0.*@dev",
-                "phpunit/phpunit": "3.7.*"
+                "phpunit/phpunit": "4.1.*"
             },
             "type": "composer-installer",
             "extra": {
@@ -47,27 +48,34 @@
                 {
                     "name": "Kyle Robinson Young",
                     "email": "kyle@dontkry.com",
-                    "homepage": "https://github.com/shama",
-                    "role": "Developer"
+                    "homepage": "https://github.com/shama"
                 }
             ],
             "description": "A multi-framework Composer library installer",
             "homepage": "http://composer.github.com/installers/",
             "keywords": [
                 "Craft",
+                "Dolibarr",
                 "Hurad",
                 "MODX Evo",
                 "OXID",
+                "SMF",
+                "Thelia",
                 "WolfCMS",
                 "agl",
+                "aimeos",
                 "annotatecms",
+                "bitrix",
                 "cakephp",
+                "chef",
                 "codeigniter",
                 "concrete5",
                 "croogo",
+                "dokuwiki",
                 "drupal",
                 "elgg",
                 "fuelphp",
+                "grav",
                 "installer",
                 "joomla",
                 "kohana",
@@ -77,9 +85,12 @@
                 "mako",
                 "mediawiki",
                 "modulework",
+                "moodle",
                 "phpbb",
                 "piwik",
                 "ppi",
+                "puppet",
+                "roundcube",
                 "shopware",
                 "silverstripe",
                 "symfony",
@@ -88,20 +99,20 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2014-02-24 04:21:34"
+            "time": "2015-02-18 17:17:01"
         },
         {
             "name": "johnpbloch/wordpress",
-            "version": "4.1.1",
+            "version": "4.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress.git",
-                "reference": "b6a0e3c2ef178f97ce8b709897fd4411420b3ccb"
+                "reference": "998358f3b7a2c75caae11ff3c79e514951aac7f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/b6a0e3c2ef178f97ce8b709897fd4411420b3ccb",
-                "reference": "b6a0e3c2ef178f97ce8b709897fd4411420b3ccb",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/998358f3b7a2c75caae11ff3c79e514951aac7f6",
+                "reference": "998358f3b7a2c75caae11ff3c79e514951aac7f6",
                 "shasum": ""
             },
             "require": {
@@ -125,7 +136,7 @@
                 "blog",
                 "cms"
             ],
-            "time": "2015-02-18 22:16:06"
+            "time": "2015-05-07 01:46:09"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",
@@ -178,12 +189,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/vlucas/phpdotenv.git",
-                "reference": "c4368fda432d002a4e40029072421fbaeac67714"
+                "reference": "0c89422fd3757284dd22e8c54eafdf3101ea6f6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/c4368fda432d002a4e40029072421fbaeac67714",
-                "reference": "c4368fda432d002a4e40029072421fbaeac67714",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/0c89422fd3757284dd22e8c54eafdf3101ea6f6e",
+                "reference": "0c89422fd3757284dd22e8c54eafdf3101ea6f6e",
                 "shasum": ""
             },
             "require": {
@@ -224,16 +235,17 @@
                 "env",
                 "environment"
             ],
-            "time": "2015-01-30 16:15:21"
+            "time": "2015-04-22 19:02:41"
         }
     ],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "stability-flags": {
         "vlucas/phpdotenv": 20
     },
-    "prefer-stable": true,
+    "prefer-stable": false,
+    "prefer-lowest": false,
     "platform": {
         "php": ">=5.4"
     },
