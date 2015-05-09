@@ -1,6 +1,7 @@
 .vagrant
 Vagrant.local.json
 
+node_modules
 vendor
 .env
 wp-cli.local.yml
