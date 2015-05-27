@@ -200,9 +200,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                 aws.secret_access_key = node["aws"].include?("secret_access_key") ? node["aws"]["secret_access_key"] : ENV["AWS_SECRET_KEY"]
 
                 # Required
-                override.ssh.private_key_path = node["aws"]["private_key_path"]
+                override.ssh.private_key_path = node["aws"].include?("private_key_path") ? node["aws"]["private_key_path"] : ENV["AWS_PRIVATE_KEY_PATH"]
                 override.ssh.username = node["aws"]["username"]
                 aws.keypair_name = node["aws"]["keypair_name"]
+                aws.keypair_name = node["aws"].include?("keypair_name") ? node["aws"]["keypair_name"] : ENV["AWS_KEYPAIR_NAME"]
 
                 # Optional
                 aws.security_groups = node["aws"].include?("security_groups") ? node["aws"]["security_groups"] : [ "default" ]
