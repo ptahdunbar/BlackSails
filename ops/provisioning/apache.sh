@@ -11,9 +11,12 @@ fi
 
 rm /etc/apache2/sites-available/* > /dev/null 2>&1
 rm /etc/apache2/sites-enabled/* > /dev/null 2>&1
-sudo rm -fr /var/www
 
-sudo ln -s /srv/web /var/www
+sudo rm -fr /var/www/html
+
+# Link up vhost file
+ln -s /var/www/ops/templates/apache2.conf /etc/apache2/apache2.conf
+ln -s /var/www/ops/templates/vhost.conf /etc/apache2/sites-enabled/html.conf
 
 sudo service apache2 restart
 

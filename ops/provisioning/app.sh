@@ -20,9 +20,9 @@ ln -s /srv/ops/apache.vhost.conf /etc/apache2/sites-enabled/pressvarrs
 #ln -s /srv/ops/nginx.vhost.conf /etc/nginx/sites-enabled/pressvarrs
 
 # setup the .env file
-if [ ! -e /srv/.env ]; then
+if [ ! -e /var/www/.env ]; then
 	echo "Created .env config file! Please review before continuing."
-	cp /srv/.env.defaults /srv/.env
+	cp /var/www/.env.defaults /var/www/.env
 fi
 
 # reboot for any changes
