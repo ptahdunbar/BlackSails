@@ -1,17 +1,15 @@
 [
     {
-        "hostname": "pressvarrs",
+        "hostname": "pressvarrs.dev",
+
         "synced_folders" : [
             {
                 "host" : ".",
-                "guest" : "/srv",
-                "group": "www-data",
-                "mount_options": [
-                    "dmode=775",
-                    "fmode=664"
-                ]
+                "guest" : "/var/www",
+                "type": "nfs"
             }
         ],
+
         "scripts": [
             "ops/provisioning/base.sh",
             "ops/provisioning/mysql.sh",
