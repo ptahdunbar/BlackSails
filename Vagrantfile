@@ -190,41 +190,46 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         # Provider: Amazon Web Services (AWS)
         #
         configure_node.vm.provider :aws do |aws, override|
-            if node["aws"]
-                override.vm.box_url = "https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box"
+            override.vm.box_url = "https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box"
 
-                # Alternative approach: add this to your .bashrc or .zshrc file
-                # export AWS_SECRET_KEY=secret_key
-                # export AWS_ACCESS_KEY=secret_key
-                aws.access_key_id = node["aws"].include?("access_key_id") ? node["aws"]["access_key_id"] : ENV["AWS_ACCESS_KEY"]
-                aws.secret_access_key = node["aws"].include?("secret_access_key") ? node["aws"]["secret_access_key"] : ENV["AWS_SECRET_KEY"]
-
-                # Required
-                override.ssh.private_key_path = node["aws"].include?("private_key_path") ? node["aws"]["private_key_path"] : ENV["AWS_PRIVATE_KEY_PATH"]
-                override.ssh.username = node["aws"]["username"]
-                aws.keypair_name = node["aws"]["keypair_name"]
-                aws.keypair_name = node["aws"].include?("keypair_name") ? node["aws"]["keypair_name"] : ENV["AWS_KEYPAIR_NAME"]
-
-                # Optional
-                aws.security_groups = node["aws"].include?("security_groups") ? node["aws"]["security_groups"] : [ "default" ]
-                aws.ami = node["aws"].include?("ami") ? node["aws"]["ami"] : "ami-9a562df2"
-                aws.region = node["aws"].include?("region") ? node["aws"]["region"] : "us-east-1"
-                aws.availability_zone = node["aws"]["availability_zone"] if node["aws"]["availability_zone"]
-                aws.instance_type = node["aws"].include?("instance_type") ? node["aws"]["instance_type"] : "m3.medium"
-                aws.subnet_id = node["aws"]["subnet_id"] if node["aws"]["subnet_id"]
-                aws.elastic_ip = node["aws"]["elastic_ip"] if node["aws"]["elastic_ip"]
-
-                aws.session_token = node["aws"]["session_token"] if node["aws"]["session_token"]
-                aws.use_iam_profile = node["aws"]["use_iam_profile"] if node["aws"]["use_iam_profile"]
-                aws.private_ip_address = node["aws"]["private_ip_address"] if node["aws"]["private_ip_address"]
-                aws.tags = node["aws"]["tags"] if node["aws"]["tags"]
-                aws.package_tags = node["aws"]["package_tags"] if node["aws"]["package_tags"]
-                aws.user_data = node["aws"]["user_data"] if node["aws"]["user_data"]
-                aws.iam_instance_profile_name = node["aws"]["iam_instance_profile_name"] if node["aws"]["iam_instance_profile_name"]
-                aws.iam_instance_profile_arn = node["aws"]["iam_instance_profile_arn"] if node["aws"]["iam_instance_profile_arn"]
-                aws.instance_package_timeout = node["aws"]["instance_package_timeout"] if node["aws"]["instance_package_timeout"]
-                aws.instance_ready_timeout = node["aws"]["instance_ready_timeout"] if node["aws"]["instance_ready_timeout"]
+            if ! node.include?("aws")
+                node["aws"] = {}
             end
+
+            # Alternative approach: add this to your .bashrc or .zshrc file
+            # export AWS_SECRET_KEY=secret_key
+            # export AWS_ACCESS_KEY=secret_key
+            aws.access_key_id = node["aws"].include?("access_key_id") ? node["aws"]["access_key_id"] : ENV["AWS_ACCESS_KEY"]
+            aws.secret_access_key = node["aws"].include?("secret_access_key") ? node["aws"]["secret_access_key"] : ENV["AWS_SECRET_KEY"]
+
+            # Required
+            override.ssh.private_key_path = node["aws"].include?("private_key_path") ? node["aws"]["private_key_path"] : ENV["AWS_PRIVATE_KEY_PATH"]
+            override.ssh.username = node["aws"].include?("username") ? node["aws"]["username"] : "ubuntu";
+            aws.keypair_name = node["aws"].include?("keypair_name") ? node["aws"]["keypair_name"] : ENV["AWS_KEYPAIR_NAME"]
+
+            # InvalidParameterCombination
+            # You cant use subnet_id with security_groups
+            if ! node["aws"].include?("subnet_id")
+                aws.security_groups = node["aws"].include?("security_groups") ? node["aws"]["security_groups"] : [ "default" ]
+            end
+
+            aws.ami = node["aws"].include?("ami") ? node["aws"]["ami"] : "ami-9a562df2"
+            aws.region = node["aws"].include?("region") ? node["aws"]["region"] : "us-east-1"
+            aws.availability_zone = node["aws"]["availability_zone"] if node["aws"]["availability_zone"]
+            aws.instance_type = node["aws"].include?("instance_type") ? node["aws"]["instance_type"] : "m3.medium"
+            aws.subnet_id = node["aws"]["subnet_id"] if node["aws"]["subnet_id"]
+            aws.elastic_ip = node["aws"]["elastic_ip"] if node["aws"]["elastic_ip"]
+
+            aws.session_token = node["aws"]["session_token"] if node["aws"]["session_token"]
+            aws.use_iam_profile = node["aws"]["use_iam_profile"] if node["aws"]["use_iam_profile"]
+            aws.private_ip_address = node["aws"]["private_ip_address"] if node["aws"]["private_ip_address"]
+            aws.tags = node["aws"]["tags"] if node["aws"]["tags"]
+            aws.package_tags = node["aws"]["package_tags"] if node["aws"]["package_tags"]
+            aws.user_data = node["aws"]["user_data"] if node["aws"]["user_data"]
+            aws.iam_instance_profile_name = node["aws"]["iam_instance_profile_name"] if node["aws"]["iam_instance_profile_name"]
+            aws.iam_instance_profile_arn = node["aws"]["iam_instance_profile_arn"] if node["aws"]["iam_instance_profile_arn"]
+            aws.instance_package_timeout = node["aws"]["instance_package_timeout"] if node["aws"]["instance_package_timeout"]
+            aws.instance_ready_timeout = node["aws"]["instance_ready_timeout"] if node["aws"]["instance_ready_timeout"]
         end
 
         #
