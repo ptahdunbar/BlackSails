@@ -1,13 +1,13 @@
 {
   "name": "wp-skeleton-app",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "> This is a work in progress. Subject to sweeping changes at random intervals until the 1.0.0 :)",
   "dependencies": {},
   "devDependencies": {},
   "scripts": {
-    "release-patch": "VERSION_=`node -pe \"require('./package.json').version\"` && NEXT_VERSION_=`node -pe \"require('semver').inc('$VERSION_', 'patch')\"` && node -e \"var j = require('./package.json'); j.version = '$NEXT_VERSION_';var s = JSON.stringify(j, null, 2); require('fs').writeFileSync('./package.json', s);\"",
-    "release-minor": "VERSION_=`node -pe \"require('./package.json').version\"` && NEXT_VERSION_=`node -pe \"require('semver').inc('$VERSION_', 'minor')\"` && node -e \"var j = require('./package.json'); j.version = '$NEXT_VERSION_';var s = JSON.stringify(j, null, 2); require('fs').writeFileSync('./package.json', s);\"",
-    "release-major": "VERSION_=`node -pe \"require('./package.json').version\"` && NEXT_VERSION_=`node -pe \"require('semver').inc('$VERSION_', 'major')\"` && node -e \"var j = require('./package.json'); j.version = '$NEXT_VERSION_';var s = JSON.stringify(j, null, 2); require('fs').writeFileSync('./package.json', s);\""
+    "release-patch": "VERSION_=`node -pe \"require('./package.json').version\"` && NEXT_VERSION_=`node -pe \"require('semver').inc('$VERSION_', 'patch')\"` && node -e \"var j = require('./package.json'); j.version = '$NEXT_VERSION_';var s = JSON.stringify(j, null, 2); require('fs').writeFileSync('./package.json', s);\" && git commit -m \"release $NEXT_VERSION_\" -- package.json && git tag \"$NEXT_VERSION_\" -m \"release $NEXT_VERSION_\"",
+    "release-minor": "VERSION_=`node -pe \"require('./package.json').version\"` && NEXT_VERSION_=`node -pe \"require('semver').inc('$VERSION_', 'minor')\"` && node -e \"var j = require('./package.json'); j.version = '$NEXT_VERSION_';var s = JSON.stringify(j, null, 2); require('fs').writeFileSync('./package.json', s);\" && git commit -m \"release $NEXT_VERSION_\" -- package.json && git tag \"$NEXT_VERSION_\" -m \"release $NEXT_VERSION_\"",
+    "release-major": "VERSION_=`node -pe \"require('./package.json').version\"` && NEXT_VERSION_=`node -pe \"require('semver').inc('$VERSION_', 'major')\"` && node -e \"var j = require('./package.json'); j.version = '$NEXT_VERSION_';var s = JSON.stringify(j, null, 2); require('fs').writeFileSync('./package.json', s);\" && git commit -m \"release $NEXT_VERSION_\" -- package.json && git tag \"$NEXT_VERSION_\" -m \"release $NEXT_VERSION_\""
   },
   "repository": {
     "type": "git",
