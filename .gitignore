@@ -7,7 +7,7 @@ vendor
 wp
 wp-cli.local.yml
 
-shared/uploads
-shared/upgrade
-shared/themes/wp-skeleton-theme
-shared/plugins/wp-skeleton-plugin
+content/uploads
+content/upgrade
+content/themes/wp-skeleton-theme
+content/plugins/wp-skeleton-plugin

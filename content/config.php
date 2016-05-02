@@ -1,7 +1,7 @@
 <?php
 
 /** Custom content directory. */
-define('CONTENT_DIR', '/shared');
+define('CONTENT_DIR', '/content');
 define('WP_CONTENT_DIR', WP_ROOT . CONTENT_DIR);
 define('WP_CONTENT_URL', WP_HOME . CONTENT_DIR);
 

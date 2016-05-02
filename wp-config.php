@@ -24,7 +24,7 @@ $dotenv->load();
 $dotenv->required(['DB_NAME', 'DB_USER', 'DB_PASSWORD', 'WP_HOME', 'WP_SITEURL']);
 
 /** Load WordPress configuration settings */
-require_once WP_ROOT . '/shared/config.php';
+require_once WP_ROOT . '/content/config.php';
 
 /* That's all, stop editing! Happy blogging. */
 
