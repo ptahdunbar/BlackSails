@@ -1,13 +1,13 @@
-.vagrant
-Vagrant.local.json
-
 node_modules
 vendor
 .env
+.idea
+*.crt
+*.key
+wp
 wp-cli.local.yml
 
-web/wp
-web/app/upgrade
-web/app/uploads
-web/app/themes/wp-skeleton-theme
-web/app/plugins/wp-skeleton-plugin
+shared/uploads
+shared/upgrade
+shared/themes/wp-skeleton-theme
+shared/plugins/wp-skeleton-plugin
