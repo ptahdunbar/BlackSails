@@ -2,15 +2,9 @@
 
 > This is a work in progress. Subject to sweeping changes at random intervals until the 1.0.0 :)
 
-### Directory Structure
+### Install
 ```
-|- /var/www
-   |- HTML
-      |- content
-      |- current -> /var/www/HTML/releases/20120816
-      |- releases
-         |- 20161231
-         |- 20120816
-         |- 19880116
+git clone https://github.com/ptahdunbar/WP-Skeleton-App.git wp.dev
+cd wp.dev
+make
 ```
-
