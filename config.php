@@ -1,9 +1,9 @@
 <?php
 
 /** Custom content directory. */
-define('CONTENT_DIR', '/content');
-define('WP_CONTENT_DIR', WP_ROOT . CONTENT_DIR);
-define('WP_CONTENT_URL', WP_HOME . CONTENT_DIR);
+define('CONTENT_DIR', 'content');
+define('WP_CONTENT_DIR', WP_ROOT . '/' . CONTENT_DIR);
+define('WP_CONTENT_URL', getenv('WP_HOME') . CONTENT_DIR);
 
 /** Set up our global environment constant. */
 define('WP_ENV', getenv('WP_ENV') ?: 'production');
