@@ -1,22 +1,22 @@
 {
   "name": "ptahdunbar/WP-Skeleton-App",
   "homepage": "https://github.com/ptahdunbar/WP-Skeleton-App",
-	"type": "project",
-    "license": "GPL2+",
+  "type": "project",
+  "license": "GPL2+",
 
-    "require": {
-        "php": ">=5.4",
-        "composer/installers": "~1.0",
-        "vlucas/phpdotenv": "2.*@dev",
-        "johnpbloch/wordpress": "~4.5"
-    },
+  "require": {
+    "php": ">=5.4",
+    "composer/installers": "~1.0",
+    "vlucas/phpdotenv": "2.*@dev",
+    "johnpbloch/wordpress": "~4.5"
+  },
 
-    "extra": {
-	    "wordpress-install-dir": "wp",
-        "installer-paths": {
-            "shared/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
-            "shared/plugins/{$name}/": ["type:wordpress-plugin"],
-            "shared/themes/{$name}/": ["type:wordpress-theme"]
-        }
+  "extra": {
+    "wordpress-install-dir": "wp",
+    "installer-paths": {
+      "shared/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
+      "shared/plugins/{$name}/": ["type:wordpress-plugin"],
+      "shared/themes/{$name}/": ["type:wordpress-theme"]
     }
+  }
 }
