@@ -1,6 +1,6 @@
 {
   "name": "wp-skeleton-app",
-  "version": "0.0.2",
+  "version": "0.3.0",
   "description": "> This is a work in progress. Subject to sweeping changes at random intervals until the 1.0.0 :)",
   "dependencies": {},
   "devDependencies": {},
