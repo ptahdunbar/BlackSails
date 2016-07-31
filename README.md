@@ -4,7 +4,6 @@
 
 ### Install
 ```
-git clone https://github.com/ptahdunbar/WP-Skeleton-App.git wp.dev
-cd wp.dev
+git clone https://github.com/ptahdunbar/WP-Skeleton-App.git .
 make
 ```
