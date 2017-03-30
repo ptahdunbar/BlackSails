@@ -7,8 +7,7 @@ vendor
 *.key
 wp
 wp-cli.local.yml
+.env.local
 
-content/uploads
-content/upgrade
-content/themes/wp-skeleton-theme
-content/plugins/wp-skeleton-plugin
+public/content/uploads
+public/content/upgrade

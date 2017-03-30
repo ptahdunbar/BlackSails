@@ -1,4 +1,4 @@
 <?php
 
 /** Loads the WordPress Environment */
-require dirname( __FILE__ ) . '/wp/index.php';
+require __DIR__ . '/wp/index.php';

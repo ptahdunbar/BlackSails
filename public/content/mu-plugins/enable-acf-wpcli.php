@@ -1,7 +1,6 @@
 <?php
 /**
  * Plugin Name:  Enable the ACF wp-cli Extension.
- * Plugin URI:   https://github.com/ptahdunbar/enable-acf-wpcli
  * Description:  Automatically enables the ACF wp-cli Extension.
  * Version:      1.0.0
  * Author:       ptahdunbar

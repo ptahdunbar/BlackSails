@@ -5,18 +5,17 @@
   "license": "GPL2+",
 
   "require": {
-    "php": ">=5.4",
     "composer/installers": "~1.0",
     "vlucas/phpdotenv": "2.*@dev",
-    "johnpbloch/wordpress": "~4.5"
+    "johnpbloch/wordpress-core": "~4.7"
   },
 
   "extra": {
-    "wordpress-install-dir": "wp",
+    "wordpress-install-dir": "public/wp",
     "installer-paths": {
-      "shared/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
-      "shared/plugins/{$name}/": ["type:wordpress-plugin"],
-      "shared/themes/{$name}/": ["type:wordpress-theme"]
+      "public/content/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
+      "public/content/plugins/{$name}/": ["type:wordpress-plugin"],
+      "public/content/themes/{$name}/": ["type:wordpress-theme"]
     }
   }
 }
