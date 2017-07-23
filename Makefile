@@ -4,7 +4,7 @@ PROTECTED_FILE=.env
 COMPOSER ?= 'composer'
 
 .PHONY: all
-all: help composer
+all: help open i
 
 help:
 	@printf "\033[36m        _    __                               					\n"
@@ -13,8 +13,11 @@ help:
 	@printf "\033[36m                                               |  |		\n"
 	@printf "\033[m\n"
 
-composer:
+i:
 	$(COMPOSER) install
+
+d:
+	$(COMPOSER) update
 
 # to create an encrypted file
 open:
