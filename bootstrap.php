@@ -31,7 +31,7 @@ if ( file_exists($path_to_environment . '/' . $environment_file) ) {
 }
 
 /** Load dependencies from composer. */
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 /** Loads environment vars from the .env file */
 $dotenv = new Dotenv\Dotenv($path_to_environment, $environment_file);

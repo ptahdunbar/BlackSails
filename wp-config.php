@@ -12,9 +12,7 @@ define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
 /** Include environment settings */
 define('WP_ENV', getenv('WP_ENV') ?: 'development');
 define('WP_HOME', getenv('WP_HOME'));
-define('WP_SITEURL', WP_HOME . getenv('ABSPATH'));
-define('WP_CONTENT_DIR', realpath(__DIR__ . getenv('CONTENT_DIR')), '/');
-define('WP_CONTENT_URL', WP_HOME . getenv('CONTENT_DIR'));
+define('WP_SITEURL', WP_HOME);
 
 /**
  * Add your custom wp-config.php settings below
@@ -30,7 +28,15 @@ define('WP_CACHE', (bool) getenv('WP_CACHE') ?: false);
 define('WP_ALLOW_MULTISITE', (bool) getenv('WP_ALLOW_MULTISITE'));
 
 if ( (bool) getenv('ENABLE_MULTISITE') ) {
-    require_once __DIR__ . '/multisite.php';
+    define('MULTISITE', (bool) getenv('MULTISITE'));
+    define('SUBDOMAIN_INSTALL', (bool) getenv('SUBDOMAIN_INSTALL'));
+
+    define('DOMAIN_CURRENT_SITE', getenv('DOMAIN_CURRENT_SITE'));
+    define('PATH_CURRENT_SITE', getenv('PATH_CURRENT_SITE'));
+
+    define('SITE_ID_CURRENT_SITE', intval( getenv('SITE_ID_CURRENT_SITE') ));
+    define('BLOG_ID_CURRENT_SITE', intval( getenv('BLOG_ID_CURRENT_SITE') ));
+
 }
 
 // No file edits unless explicitly allowed in local-config.php
@@ -66,7 +72,7 @@ define('NONCE_SALT', getenv('NONCE_SALT') ?: 'put your unique phrase here');
 
 /** Absolute path to the WordPress directory. */
 if ( ! defined('ABSPATH') ) {
-    define('ABSPATH', realpath( __DIR__ . getenv('ABSPATH')) . '/');
+    define('ABSPATH', __DIR__ . '/');
 }
 
 /** Sets up WordPress vars and included files. */

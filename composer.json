@@ -11,11 +11,11 @@
   },
 
   "extra": {
-    "wordpress-install-dir": "public/wp",
+    "wordpress-install-dir": "public",
     "installer-paths": {
-      "public/content/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
-      "public/content/plugins/{$name}/": ["type:wordpress-plugin"],
-      "public/content/themes/{$name}/": ["type:wordpress-theme"]
+      "public/wp-content/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
+      "public/wp-content/plugins/{$name}/": ["type:wordpress-plugin"],
+      "public/wp-content/themes/{$name}/": ["type:wordpress-theme"]
     }
   }
 }

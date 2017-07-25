@@ -1,13 +1,10 @@
 node_modules
 vendor
+public
+.idea
 .DS_Store
 .env
-.idea
 *.crt
 *.key
-public/wp
 wp-cli.local.yml
 .env.local
-
-public/content/uploads
-public/content/upgrade
