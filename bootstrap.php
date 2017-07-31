@@ -41,6 +41,8 @@ if ( file_exists($path_to_environment . '/' . $environment_file) ) {
     $found_envfile = true;
 }
 
+
+/* Priority is given to a file existing on disk. */
 if ( $found_envfile ) {
     /** Loads environment vars from the .env file */
     $dotenv = new Dotenv\Dotenv($path_to_environment, $environment_file);
