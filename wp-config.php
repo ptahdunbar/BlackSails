@@ -1,5 +1,8 @@
 <?php
 
+/** Load dependencies from composer. */
+require_once __DIR__ . '/vendor/autoload.php';
+
 /** Require local config **/
 require __DIR__ . '/bootstrap.php';
 
