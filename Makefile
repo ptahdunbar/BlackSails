@@ -4,7 +4,7 @@ PROTECTED_FILE=.env
 COMPOSER ?= 'composer'
 
 .PHONY: all
-all: help open i
+all: help i
 
 help:
 	@printf "\033[36m        _    __                               					\n"
@@ -19,11 +19,17 @@ i:
 d:
 	$(COMPOSER) update
 
-# to create an encrypted file
-open:
+# to decrypt .env.encrypted into .env
+env:
 	openssl cast5-cbc -d -in ${PROTECTED_FILE}.encrypted -out ${PROTECTED_FILE}
 	chmod 600 ${PROTECTED_FILE}
 
-# for decrypt an encrypted file
-close:
+# to copy .env.example into .env
+reset:
+	cp ${PROTECTED_FILE}.template ${PROTECTED_FILE}
+	chmod 600 ${PROTECTED_FILE}
+	make lock
+
+# to encrypt .env into .env.encrypted
+lock:
 	openssl cast5-cbc -e -in ${PROTECTED_FILE} -out ${PROTECTED_FILE}.encrypted
