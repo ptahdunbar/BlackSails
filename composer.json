@@ -1,8 +1,13 @@
 {
-  "name": "ptahdunbar/WP-Skeleton-App",
-  "homepage": "https://github.com/ptahdunbar/WP-Skeleton-App",
+  "name": "ptahdunbar/wp",
+  "homepage": "https://github.com/ptahdunbar/wp",
   "type": "project",
   "license": "GPL2+",
+
+  "repositories": [{
+    "type": "composer",
+    "url": "https://wpackagist.org"
+  }],
 
   "require": {
     "composer/installers": "~1.0",
